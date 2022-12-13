@@ -1,0 +1,17 @@
+import datetime
+
+def day(num):
+    if(num-1 == -1):
+        return 6
+    else:
+        return (num-1)
+
+hari = ['Senin', 'Selasa', 'Rabu', 'kamis', 'jumat', 'Sabtu', 'Minggu']
+
+date = datetime.date.today()
+
+today = date.weekday()
+yesterday = day(today)
+
+print('Tahun ini:', str(date)[0:4])
+print('Tanggal sekarang:', date, '\nHari ini:', hari[today], '\nHari kemarin:', hari[yesterday])
