@@ -11,4 +11,4 @@ for k,v in latin_dic.items():
 for k,v in new_dict.items():
     print(k, '-', v)
 
-print('Test')
+print('Test di branch baru :D')
