@@ -16,14 +16,19 @@ vokabuler = {
 
 while(tmp.lower()!='exit'):
     clientsocket, address = s.accept()
-    data = clientsocket.recv(1024)
-    tmp = data.decode("utf-8")
-    
-    # bagian menampilkan data yang diminta
-    print("Command :", tmp)
-    if(tmp.lower() in vokabuler):
-        msg = vokabuler[tmp]
-        clientsocket.send(bytes(msg, "utf-8"))
-    else:
-        msg = "Sorry, the command is unknown"
-        clientsocket.send(bytes(msg, "utf-8"))
+    while(tmp.lower()!='exit'):
+        data = clientsocket.recv(1024)
+        tmp = data.decode("utf-8")
+        # bagian menampilkan data yang diminta
+        print("Command :", tmp)
+        # bagian sistem response server
+        if(tmp.lower() in vokabuler):
+            msg = vokabuler[tmp]
+            clientsocket.send(bytes(msg, "utf-8"))
+        else:
+            msg = "Sorry, the command is unknown"
+            clientsocket.send(bytes(msg, "utf-8"))
+        if(tmp.lower()=='exit'):
+            print('Mematikan server')
+            s.close()
+            break
