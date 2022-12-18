@@ -6,6 +6,7 @@ s.listen(5)
 print("Communication Program About MySelf")
 data = ""
 tmp = ""
+
 vokabuler = {
         "name"  : "Bara Donta Perdana",
         "nim"   : "L200220194",
