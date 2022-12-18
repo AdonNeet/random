@@ -1,29 +1,28 @@
 import socket
+hostname = "localhost"
 s =socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-s.bind(("", 50003))
+s.bind((hostname, 50003))
 s.listen(5)
 print("Communication Program About MySelf")
-data =""
+data = ""
+tmp = ""
 vokabuler = {
-        "Nama"  : "Bara Donta Perdana",
-        "NIM"   : "L200220194",
-        "Year"  : "2022",
-        "Exit"  : "OK"
+        "name"  : "Bara Donta Perdana",
+        "nim"   : "L200220194",
+        "year"  : "2022",
+        "exit"  : "OK"
         }
-data.strip("b'")
-while(data.lower()  != "exit"):
-    komm, addr = s.accept()
-    data.strip("b'")
-    while(data.lower()!='exit'):
-        data = komm.recv(1024)
-        tmp = data.strip("b'")
-        if(data.lower()=='exit'):
-            s.close()
-            break
-        print("Command :", data)
-        if(data in vokabuler):
-            temp = vokabuler[data]
-            komm.send(temp)
-        else:
-            temp = "Sorry, the command is unknown"
-            komm.send(temp)
+
+while(tmp.lower()!='exit'):
+    clientsocket, address = s.accept()
+    data = clientsocket.recv(1024)
+    tmp = data.decode("utf-8")
+    
+    # bagian menampilkan data yang diminta
+    print("Command :", tmp)
+    if(tmp.lower() in vokabuler):
+        msg = vokabuler[tmp]
+        clientsocket.send(bytes(msg, "utf-8"))
+    else:
+        msg = "Sorry, the command is unknown"
+        clientsocket.send(bytes(msg, "utf-8"))
