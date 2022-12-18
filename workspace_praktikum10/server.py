@@ -1,6 +1,6 @@
 import socket
 s =socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-s.bind(("", 50004))
+s.bind(("", 50003))
 s.listen(5)
 print("Communication Program About MySelf")
 data =""
@@ -11,16 +11,19 @@ vokabuler = {
         "Exit"  : "OK"
         }
 data.strip("b'")
-while(data.lower()  != "Exit"):
+while(data.lower()  != "exit"):
     komm, addr = s.accept()
-    while(data.lower() != "Exit"):
+    data.strip("b'")
+    while(data.lower()!='exit'):
         data = komm.recv(1024)
-        if(data.lower() == "Exit"):
+        tmp = data.strip("b'")
+        if(data.lower()=='exit'):
             s.close()
             break
         print("Command :", data)
         if(data in vokabuler):
-            komm.send(vokabuler[data])
+            temp = vokabuler[data]
+            komm.send(temp)
         else:
-            txt = "Sorry, the command is unknown"
-            komm.send(txt.encode('ascii'))
+            temp = "Sorry, the command is unknown"
+            komm.send(temp)

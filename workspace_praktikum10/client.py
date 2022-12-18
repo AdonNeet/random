@@ -1,16 +1,16 @@
 import socket
 hostname = "localhost"
 msg = ""
+input = raw_input
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-s.connect((hostname, 50004))
-while(msg.lower() != "Exit"):
+s.connect((hostname, 50003))
+while(msg.lower() != "exit"):
     msg = input("Command : ")
-    msg = msg.encode('ascii')
     s.send(msg)
-    if(msg.lower() == "Exit"):
+    if(msg.lower() == "exit"):
         s.close()
         break
-    elif(msg.lower() != "Exit"):
+    elif(msg.lower() != "exit"):
         response = s.recv(1024)
         print("Answer :", response)
 s.close()
