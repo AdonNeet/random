@@ -5,12 +5,12 @@ hostname = "localhost"
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 s.bind((hostname, 1234))
 s.listen(5)
-print("Program server tentang data diri")
+print("Program server mengitung luas persegi")
 
 # bagian data terenkripsi dan tmp data
 data = ""
 tmp = ["" * 2]
-
+sisi = None
 
 react = {
         "sisi" : "Panjang sisi sudah disimpan",
@@ -33,8 +33,11 @@ while(tmp[0].lower()!='keluar'):
                 sisi = int(tmp[1])
                 msg = react[tmp[0]]
             elif(tmp[0]=='hitung'):
-                luas = sisi**2
-                msg = react[tmp[0]]+str(luas)
+                if(sisi!=None):
+                    luas = sisi**2
+                    msg = react[tmp[0]]+str(luas)
+                else:
+                    msg = "Maaf, anda belum memasukkan sisi"
             else:
                 msg = react[tmp[0]]          
             clientsocket.send(bytes(msg, 'utf-8'))
