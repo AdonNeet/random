@@ -24,7 +24,7 @@ menu()
 # bagian untuk mengirim dan menerima data ke dan dari server
 while(msg.lower()!='keluar'):
     msg = input('Perintah : ')
-    if(msg.lower=='menu'):
+    if(msg.lower()=='menu'):
         menu()
         continue
     s.send(bytes(msg, 'utf-8'))

@@ -26,6 +26,9 @@ menu()
 # bagian untuk mengirim dan menerima data ke dan dari server
 while(msg.lower()!='quit'):
     msg = input('Perintah : ')
+    if(msg.lower()=='menu'):
+        menu()
+        continue
     s.send(bytes(msg, 'utf-8'))
     if(msg.lower()=='quit'):
         react = s.recv(1024)
