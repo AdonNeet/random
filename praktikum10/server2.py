@@ -1,11 +1,14 @@
 import socket
 import platform
 
+# bagian pengaturan socket
 hostname = "localhost"
 s =socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 s.bind((hostname, 50004))
 s.listen(5)
 print("Communication Program About My Platform")
+
+# bagian data terenkripsi dan temporary terdecode
 data = ""
 tmp = ""
 
@@ -20,6 +23,7 @@ react = {
 
 
 while(tmp.lower()!='exit'):
+    # bagian sistem yang aktif menerima data secara terus menerus
     clientsocket, address = s.accept()
     while(tmp.lower()!='exit'):
         data = clientsocket.recv(1024)

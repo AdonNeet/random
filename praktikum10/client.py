@@ -2,9 +2,11 @@ import socket
 
 # bagian pengaturan koneksi ke socket 
 hostname = "localhost"
-msg = ""
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 s.connect((hostname, 50003))
+
+# bagian pesan yang akan dikirim
+msg = ""
 
 # bagian untuk mengirim data ke server
 while(msg.lower() != "exit"):

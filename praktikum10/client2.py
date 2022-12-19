@@ -4,6 +4,7 @@ hostname = "localhost"
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 s.connect((hostname, 50004))
 
+# bagian pesan yang akan dikirim
 msg = ""
 
 # bagian untuk mengirim data ke server

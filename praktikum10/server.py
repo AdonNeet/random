@@ -1,9 +1,13 @@
 import socket
+
+# bagian pengaturan socket
 hostname = "localhost"
 s =socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 s.bind((hostname, 50003))
 s.listen(5)
 print("Communication Program About MySelf")
+
+# bagian data terenkripsi dan temporary terdecode
 data = ""
 tmp = ""
 
