@@ -9,19 +9,29 @@ s.connect((hostname, 1234))
 msg = ""
 tmp = ""
 
+#  function penampil menu
+def menu():
+    print('Berikut adalah beberapa contoh penggunaan server ini:')
+    print('     nama     : menampilkan nama machine')
+    print('     nim      : menampilkan releases')
+    print('     tahun    : menampilkan nama system')
+    print('     menu     : menampilkan menu')
+    print('     keluar   : keluar dari server')
+
 print('Selamat datang di server p10k1')
+menu()
 
 # bagian untuk mengirim dan menerima data ke dan dari server
-while(msg.lower()!='exit'):
+while(msg.lower()!='keluar'):
     msg = input('Perintah : ')
     s.send(bytes(msg, 'utf-8'))
-    if(msg.lower()=='exit'):
+    if(msg.lower()=='keluar'):
         react = s.recv(1024)
         tmp = react.decode('utf-8')
         print('Jawaban :', tmp)
         s.close()
         break
-    elif(msg.lower()!='exit'):
+    elif(msg.lower()!='keluar'):
         react = s.recv(1024)
         tmp = react.decode('utf-8')
         print('Jawaban :', tmp)

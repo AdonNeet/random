@@ -9,7 +9,19 @@ s.connect((hostname, 1234))
 msg = ""
 tmp = ""
 
+#  function penampil menu
+def menu():
+    print('Berikut adalah beberapa contoh penggunaan server ini:')
+    print('     machine     : menampilkan nama machine')
+    print('     release     : menampilkan releases')
+    print('     system      : menampilkan nama system')
+    print('     version     : menampilkan version')
+    print('     node        : menampilkan nama node')
+    print('     menu        : menampilkan menu')
+    print('     quit        : keluar dari server')
+
 print('Selamat datang di server p10k2')
+menu()
 
 # bagian untuk mengirim dan menerima data ke dan dari server
 while(msg.lower()!='quit'):

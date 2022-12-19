@@ -14,7 +14,8 @@ def menu():
     print('Berikut adalah beberapa contoh penggunaan server ini:')
     print('     sisi = [panjang sisi]    : memasukkan data panjang sisi')
     print('     hitung                   : untuk menampilkan hasil')
-    print('     exit                     : untuk keluar server')
+    print('     menu                     : menampilkan menu   ')
+    print('     keluar                    : untuk keluar server')
 
 
 print('Selamat datang di server p10k3')
