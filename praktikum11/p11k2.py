@@ -7,7 +7,7 @@
 from tkinter import *
 
 window = Tk()
-window.title('Kalkulator sederhana')
+window.title('Kalkulator')
 window.geometry('250x180')
 
 # bagian label samping entry
