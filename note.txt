@@ -1,0 +1,16 @@
+"""
+'Nama       Bara Donta Perdana',
+'NIM        L200220194',
+'Buku       Isekai wa Smartphone',
+'Idola      Umar bin Khattab',
+'Motto      Mencari kemungkinan terburuk untuk menentukan penyelesaian yang terbaik'
+"""
+"""
+txt1 = Label(
+            window,
+            text='Nama       Bara Donta Perdana\nNIM        L200220194\nBuku       Isekai wa Smartphone\nIdola      Umar bin Khattab\nMotto      Mencari kemungkinan terburuk untuk menentukan penyelesaian yang terbaik',
+            font=('helvetica', 12, 'bold'),
+            fg='black',
+            ).grid(row=1, column=0)
+
+"""
