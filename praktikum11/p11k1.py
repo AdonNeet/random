@@ -24,8 +24,8 @@ data = {
 # menggunakan perulangan untuk menampilkan data diri
 x, y = int(0), int(1)
 for kunci in data:
-    Label(window, text=kunci, font=('Helvetica', 12, 'bold'), fg='black', padx=10, pady=2).grid(row=y,column=x,sticky=W)
-    Label(window, text=data[kunci], font=('Helvetica', 12, 'bold'), fg='black', padx=10, pady=2).grid(row=y,column=x+1,sticky=W)
+    Label(window, text=kunci, font=('Helvetica', 12), fg='black', padx=10, pady=2).grid(row=y,column=x,sticky=W)
+    Label(window, text=data[kunci], font=('Helvetica', 12), fg='black', padx=10, pady=2).grid(row=y,column=x+1,sticky=W)
     y += 1
 
 # bagian tombol

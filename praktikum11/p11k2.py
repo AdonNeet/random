@@ -50,10 +50,10 @@ def bagi():
 
 # bagian tombol
 tx, ty = int(30), int(95)
-Button(window,text='+',font=('helvetica', 12),fg='black',command=tambah,padx=10,).place(x=tx+(50*0),y=ty)
-Button(window,text='-',font=('helvetica', 12),fg='black',command=kurang,padx=10,).place(x=tx+(50*1),y=ty)
-Button(window,text='x',font=('helvetica', 12),fg='black',command=kali,padx=10,).place(x=tx+(50*2),y=ty)
-Button(window,text=':',font=('helvetica', 12),fg='black',command=bagi,padx=10,).place(x=tx+(50*3),y=ty)
+Button(window,text='+',font=('helvetica', 12),fg='black',command=tambah,padx=10, relief=RAISED).place(x=tx+(50*0),y=ty)
+Button(window,text='-',font=('helvetica', 12),fg='black',command=kurang,padx=10, relief=RAISED).place(x=tx+(50*1),y=ty)
+Button(window,text='x',font=('helvetica', 12),fg='black',command=kali,padx=10, relief=RAISED).place(x=tx+(50*2),y=ty)
+Button(window,text=':',font=('helvetica', 12),fg='black',command=bagi,padx=10,relief=RAISED).place(x=tx+(50*3),y=ty)
 
 # bagian penampil hasil
 Label(window, text='Hasil   :', font=('Helvetica', 12), fg='black').place(x=10,y=145)
