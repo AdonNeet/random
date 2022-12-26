@@ -43,6 +43,6 @@ hasil = Label(window, text=ans, font=('Helvetica', 12), fg='black')
 hasil.place(x=70,y=160)
 
 # bagian tombol
-Button(window,text='Hitung luas',font=('helvetica', 12),fg='black',command=luas,padx=10,).place(x=280,y=118)
+Button(window,text='Hitung luas',font=('helvetica', 12),fg='black',command=luas).place(x=280,y=115)
 
 window.mainloop()
