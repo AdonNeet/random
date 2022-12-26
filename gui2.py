@@ -7,7 +7,7 @@ window = Tk()
 Label(window,text='Angka 1',font=('helvetica', 12),fg='black',padx=10, pady=10,).grid(row=0, column=0)
 Label(window,text='Angka 2',font=('helvetica', 12),fg='black',padx=10, pady=10,).grid(row=1, column=0)
 inp1 = Entry(window)
-inp1.grid(row=0, column=1)
+inp1.grid(row=0, column=1)  # grid config dipisah agar bisa di dapatkan value di entry
 inp2 = Entry(window)
 inp2.grid(row=1, column=1)
 
