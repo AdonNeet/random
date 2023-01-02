@@ -1,11 +1,20 @@
+dict = (
+        "Nama : Bara Donta Perdana",
+        "Alamat tinggal : Karangbener, Bae, Kudus",
+        "Tempat, tanggal lahir : Kudus, 10 Februari 2005",
+        "Tempat wisata favorit : Ke gunung sambil naik sepeda",
+        "Motto : Mencari kemungkinan terburuk untuk menentukan penyelesaian yang terbaik"
+        )
+
 print("<!DOCTYPE html>")
-print("""
-<html>
-<head><title>Akses melalui CGI</title></head>
-<body>
-    <h3>
-    Selamat datang di CGI
-    </h3>
-</body>
-</html>
-""")
+print("<html>")
+print("<head>")
+print("<title>localServer_CGI</head></title>")
+print("<body>")
+print("<h3>Data Diri</h3>")
+
+for i in dict:
+    print("<p>"+i+"</p>")
+
+print("</body")
+print("</html>")
