@@ -7,7 +7,9 @@ print("""
 </head>
 <body>
     <div>
-        <h2>Data Diri</h2>
+        <h1>
+            Data Diri
+        </h1>
         <p>Nama : Bara Donta Perdana <br>
         Alamat Tinggal : Kudus, Jawa Tengah <br>
         Tempat, Tanggal Lahir : Kudus, 10 Februari 2005 <br>

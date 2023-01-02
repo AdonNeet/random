@@ -11,13 +11,17 @@ print("""
 </head>
 <body>
     <div>
-        <h2>Bangun Geometri</h2>
+        <h1>
+            Bangun Geometri
+        </h1>
         <p>Nama bangunan : Persegi <br>
         Dimensi (2D/3D) : 2D <br>
         Rumus luas : sisi * sisi <br>
-""")
-print("Sisi : "+str(n)+"<br>")
-print("Luas : "+str(ans)+"<br>")
+        Sisi : {0} <br>
+        Luas : {1}
+""").format(str(n), str(ans)) #it didnt work
+#print("Sisi : "+str(n)+"<br>")
+#print("Luas : "+str(ans))
 print("""
         </p>
     </div>
