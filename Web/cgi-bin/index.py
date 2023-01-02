@@ -9,7 +9,7 @@ dict = (
 print("<!DOCTYPE html>")
 print("<html>")
 print("<head>")
-print("<title>localServer_CGI</head></title>")
+print("<title>localServer_CGI</title></head>")
 print("<body>")
 print("<h3>Data Diri</h3>")
 
