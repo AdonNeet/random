@@ -1,4 +1,3 @@
-print("<!DOCTYPE html>")
 print("""
 <!DOCTYPE html>
 <html lang="en">
@@ -19,6 +18,5 @@ print("""
     </div>
 </body>
 </html>
-
 """)
-print("</p></body></html>")
+
