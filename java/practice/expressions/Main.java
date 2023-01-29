@@ -6,6 +6,8 @@ public class Main{
 
         // yeah, thats is the basic
 
+        int a, b, c;
+
         
     }
 }
