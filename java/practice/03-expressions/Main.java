@@ -16,7 +16,7 @@ public class Main{
         System.out.print("Masukkan nilai jari2: "); j = input.nextInt();    // its linear input mode
         System.out.print("Masukkan nilai tinggi: "); t = input.nextInt();
 
-        Double ans = (Double) Math.PI * Math.pow(j, 2) * t;
+        double ans = (double) Math.PI * Math.pow(j, 2) * t; // add double inside the expression, so we can store decimal num
         
         System.out.println("Hasilnya adalah "+ans);
     }
