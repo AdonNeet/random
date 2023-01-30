@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class Main {
+public class logicOP {
     public static void main(String[] args){
         /*
          * logical operators = used to connect two or more expressions
@@ -12,6 +12,8 @@ public class Main {
         Scanner input = new Scanner(System.in);
         System.out.print("Berapa suhu saat ini? (C but int) ");
         int deg = input.nextInt();
+
+        input.close();
 
         if(deg>=37){ // mirip seperti c++ untuk if statement
             System.out.println("Suhu saat ini panas");

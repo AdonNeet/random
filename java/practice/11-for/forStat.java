@@ -1,6 +1,4 @@
-
-
-public class Main {
+public class forStat {
     // for(iterate index;the limiter;the increment){your code}
     // increment is math thing
 
@@ -8,5 +6,11 @@ public class Main {
         for(int i=0; i<=15; i+=(1*2)){
             System.out.println(i);
         }
-    }  
+
+        System.out.println("");
+
+        for(int i=14; i>=0; i-=(1*2)){
+            System.out.println(i);
+        }
+    }
 }

@@ -1,8 +1,7 @@
 import javax.swing.JOptionPane;
 
-public class Main {
+public class GuiBasic {
     public static void main(String[] args){
-        
         String name = JOptionPane.showInputDialog("Masukkan nama kamu");
         JOptionPane.showMessageDialog(null, "Hello "+name);
 

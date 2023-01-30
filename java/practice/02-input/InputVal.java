@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class Main{
+public class InputVal {
     public static void main(String[] args){
         // to make a reader/scanner for a input
         Scanner scan = new Scanner(System.in);
@@ -15,6 +15,9 @@ public class Main{
 
         System.out.println("Apa makanan favoritmu?");
         String food = scan.nextLine(); // scan a line for string, in another line
+
+        // to close the input instance, close it after use (or it will leak)
+        scan.close();
 
         // to make the output
         System.out.println("Hallo "+name);
