@@ -3,12 +3,13 @@ import java.lang.Math; // Java Math Class
 
 public class Main{
     public static void main(String[] args){
-        // expression = operands and operators
-        // operands = values, variables, numbers, quantity
-        // operators = + - * / %
+        /* 
+        expression = operands and operators
+        operands = values, variables, numbers, quantity
+        operators = + - * / %
 
-        // yeah, thats is the basic
-
+        yeah, thats is the basic
+        */
         Scanner input = new Scanner(System.in);
 
         int j, t;
