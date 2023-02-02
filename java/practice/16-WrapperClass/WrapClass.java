@@ -21,10 +21,10 @@ public class WrapClass {
 
     public static void main(String[] args){
         Boolean a = true;       // autoboxing... yeah.. the wrapper before the var name
-        Character b = '@';
-        Integer c = 123;
-        Double d = 3.14;
-        String e = "Adon";
+        //Character b = '@';
+        //Integer c = 123;
+        //Double d = 3.14;
+        //String e = "Adon";
 
         if(a==true){    // unboxing
             System.out.println("This is true");
