@@ -11,6 +11,8 @@ public class Utama {
         Cout.cetakln("1 for dog or 2 for cat");
         int choice = input.nextInt();
 
+        input.close();
+
         if(choice==1){
             animal = new Dog();
             animal.speak();
