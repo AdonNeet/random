@@ -1,9 +1,10 @@
 
 
-public class Cout{
+public class cout{
 
     /*
-     * note : only for one input data :)
+     *  note : only for one var :)
+     *  AdonNeet 2023
      */
 
 
