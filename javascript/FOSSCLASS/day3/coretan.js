@@ -27,25 +27,25 @@ function add(data) {
 }
 
 // remove funct (undone), index finder goes wrong for the remove and get funct
-function remove(condition){ //only for one user (?)
+function remove(condition){ 
     // find the index of object with condition
     var index = [];
     if (Array.isArray(condition) === true) {
         for (let i = 0;i<database.length;i++) {
             const trueCount = condition.length;
             var found = false;
+            var count = 0;
             for(let j = 0;j<condition.length;j++){
-                var count = 0;
-                if(database[i][varToStr(condition[j])] === condition[j][varToStr(condition[j])]) {
-                    count++;
-                    if(count === trueCount) {   // something shit happening in there, didnt detect when its array
-                        found = true;
-                        break;
-                    } else {
-                        continue;   
-                    }
+                if(database[i][varToStr(condition[j])] === condition[varToStr(condition[j])]) { // the problem in there, it cant compare, the pointer for condition goes wrong
+                    count++;   
                 } else {
                     break;
+                }
+                if(count === trueCount) {  
+                    found = true;
+                    break;
+                } else {
+                    continue;
                 }
             }
             if (found === true) {
@@ -59,6 +59,7 @@ function remove(condition){ //only for one user (?)
             }
         }
     }
+    // purge with splice, it works pretty well
     console.log(index);
     if (index.length > 1) {
         var count = 0;
