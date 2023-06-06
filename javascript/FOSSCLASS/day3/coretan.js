@@ -30,7 +30,7 @@ function add(data) {
 function remove(condition){ 
     // find the index of object with condition
     var index = [];
-    if (Array.isArray(condition) === true) {
+    if (Array.isArray(condition) === true) {    // the stdin is array, why you check it, fck!
         for (let i = 0;i<database.length;i++) {
             const trueCount = condition.length;
             var found = false;
@@ -178,5 +178,5 @@ var idx = database.map(function(e) { return e['name']; }).indexOf('Kari');
 console.log(idx);
 console.log(findIndex('name', 'Kari'));
 
-remove({age: "21", gender: "Male"});
+remove({gender: "Female"}); // because the stdin is array with flag, yeah fck it
 console.log(database)
