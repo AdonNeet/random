@@ -1,4 +1,5 @@
-/*  
+/* 
+ 
     Author : adon_neet
     Github : https://github.com/AdonNeet/Random/blob/main/javascript/FOSSCLASS/day3/db_work.js
     Date   : M6/D5/Y2023 (created)
@@ -7,7 +8,7 @@
 
 const database = [];
 
-// var to string, to get the name of variable, it also can get used in object orientated
+// var to string, to get the name key of array, it also can get used in object orientated (to get the key name of property)
 const varToStr = varObj => Object.keys(varObj)[0];
 
 // add function (done, just throw them into database)
@@ -76,7 +77,7 @@ function get(data, condition) {
             }
         }
     }
-    // get all data, i think the output promises such as a table
+    // get all data that want to stdout, i think the output promises such as a table
 
 }
 

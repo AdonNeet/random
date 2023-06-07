@@ -5,9 +5,6 @@ const [id, name, age, gender, address] = ['id', 'name', 'age', 'gender', 'addres
 const ALL = ['id', 'name', 'age', 'gender', 'address'];
 
 
-
-
-
 const varToStr = varObj => Object.keys(varObj); // to get list key of array
 
 function findIndex(prop, value) { // only one condition
@@ -34,6 +31,7 @@ function remove(condition){
     const trueCount = kondisi.length;
     // check area=========================
     console.log(kondisi, "kondisi ditemukan"); // check the kondisi, it founded, also check the database inside
+    /*
     for (let i = 0;i<kondisi.length;i++){   // for checking
         console.log(condition[kondisi[i]]);
         console.log(database[1][kondisi[i]]);
@@ -45,6 +43,7 @@ function remove(condition){
             }
         }
     }
+    */
     // ==================================
 
     for (let i = 0;i<database.length;i++) {
@@ -78,51 +77,73 @@ function remove(condition){
 
 
 // get funct, undone, sike
-function get(subdata, condition){   // only for one user (?)
-    // find the index of obj with condition, done
+function get(property, condition){   // only for one user (?)
+    // find the index of obj with condition
     var index = [];
-    if (Array.isArray(condition === true)) {
-        for (let i = 0;i<database.length;i++) {
-            const trueCount = condition.length;
-            var found = false;
-            for(let j = 0;j<condition.length;j++){
-                var count = 0;
-                if(database[i][varToStr(condition[j])] === condition[j]) {
-                    count++;
-                    if(count === trueCount) {
-                        found = true;
-                        break;
-                    } else {
-                        continue;   
-                    }
-                } else {
-                    break;
-                }
+    var kondisi = varToStr(condition);
+    const trueCount = kondisi.length;
+    for (let i = 0;i<database.length;i++) {
+        var count = 0;
+        for(let j = 0;j<trueCount;j++) {
+            if(database[i][kondisi[j]] === condition[kondisi[j]]) { 
+                count++;
+            } else {
+                break;
             }
-            if (found === true) {
+            if(count === trueCount) {  // if count same with trueCount, push i to index
                 index.push(i);
-            }
-        }
-    } else {
-        for (let i = 0;i<database.length;i++) {
-            var found = false;
-            if(database[i][varToStr(condition)] === condition) {
-                found = true;
-            }
-            if (found === true) {
-                index.push(i);
+                break;
+            } else {
+                continue;
             }
         }
     }
+    console.log(index, "index that will get-ed");
+
     // the kind of subdata that want to get-ed, the output promises like a table, i think
-    if (Array.isArray(subdata) === true) {
-        if (varToStr(subdata) === 'ALL') {
-         
-            return;   
+    console.log(property, "property that want get-ed"); // check the stdin
+    /*
+    for (let idx = 0;idx<index.length;idx++) {      // yeah, it work, but didnt like table
+        for (let i =0;i<property.length;i++) {
+            console.log((database[idx][property[i]]));
         }
-    } else {
-        
     }
+    */
+    // to find a length of each column
+    var headCount = property.length; 
+    var lengtHead = [];     // it minim length, depend on head and value length, then add 2 or 3 space when do stdout
+    var borderIdx = [];
+    var lenCount = 0;
+    for (let i = 0;i<headCount;i++) {
+        var bigLen = 0;
+        for (let idx = 0;idx<index.length;idx++) {
+            if (database[idx][property[i]].length > bigLen) {   // check the bigLen of value
+                bigLen = database[idx][property[i]].length;
+            }
+        }
+        if (bigLen > property[i].length) {
+            lengtHead.push(bigLen);
+            lenCount = lenCount + bigLen + 2; // add 3 to make the table doesnt look cramped
+        } else {
+            lengtHead.push(property[i].length);
+            borderIdx.push(property[i].length+1);
+            lenCount = lenCount + property[i].length + 3;
+        }
+    }
+    console.log(lengtHead, "that is the length every head", lenCount, "is the length total")
+    // to stdout the table, and the content
+    var aCount = 0;
+    var aPost = 0;
+    var headRest = '';
+    for (let i = 0;i<lenCount;i++) {
+        if (i === borderIdx[aPost]){
+            headRest = headRest + "|";
+        } else { // stuck in there, idk how to make the itteration
+
+        }
+    }
+ 
+    
 }
 
 
@@ -169,20 +190,28 @@ const user5 = {     // 4
     address: "Isekai",
 }
 
+
+// below is the main code
+
 // add(user1); add(user2); add(user3);
 add([user1, user2, user3, user4, user5]);
 add({id: "6", name: "Ran", age: "25", gender: "Male", address: "World"})
 
-console.log(database.length);
+console.log(database.length, "user was added");
 
-for (let i = 0;i<database.length;i++) {
+/*
+for (let i = 0;i<database.length;i++) { // to check the content of database
     console.log(database[i]);
 }
+*/
 
-var idx = database.map(function(e) { return e['name']; }).indexOf('Kari');
-console.log(idx);
-console.log(findIndex('name', 'Kari'));
+// var idx = database.map(function(e) { return e['name']; }).indexOf('Kari');
+// console.log(idx);
+// console.log(findIndex('name', 'Kari'));
 
+get([id, name, gender], {id: '1'}); // to stdout the id, name, gender in like table condition
 
-remove({gender: "Male", age: "21"}); // because the stdin is array with flag, yeah fck it
+/*
+remove({gender: "Female"}); // to remove the Female user
 console.log(database)
+*/
