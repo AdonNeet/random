@@ -30,10 +30,10 @@ function add(data) {
 function remove(condition){ 
     // find the index of object with condition
     var index = [];
-    const trueCount = condition.length;
     var kondisi = varToStr(condition);
-    console.log(kondisi); // check the kondisi, it founded, also check the database inside
-    for (let i = 0;i<kondisi.length;i++){
+    const trueCount = kondisi.length;
+    console.log(kondisi, "kondisi ditemukan"); // check the kondisi, it founded, also check the database inside
+    for (let i = 0;i<kondisi.length;i++){   // for checking
         console.log(condition[kondisi[i]]);
         console.log(database[1][kondisi[i]]);
 
@@ -46,9 +46,8 @@ function remove(condition){
     }
 
     for (let i = 0;i<database.length;i++) {
-        var found = false;
         var count = 0;
-        for(let j = 0;j<condition.length;j++) {
+        for(let j = 0;j<trueCount;j++) {
             if(database[i][kondisi[j]] === condition[kondisi[j]]) { // it can, but idk why cant get it
                 count++;
                 console.log(i, j, "Found");   
@@ -56,18 +55,15 @@ function remove(condition){
                 break;
             }
             if(count === trueCount) {  
-                found = true;
+                index.push(i);
                 break;
             } else {
                 continue;
             }
         }
-        if (found === true) {
-            index.push(i);
-        }
     }
     // purge with splice, it works pretty well
-    console.log(index);
+    console.log(index, "index that will purged");
     if (index.length > 1) {
         var count = 0;
         for (let idx = 0;idx<index.length;idx++){
@@ -186,5 +182,5 @@ console.log(idx);
 console.log(findIndex('name', 'Kari'));
 
 
-remove({gender: "Male"}); // because the stdin is array with flag, yeah fck it
+remove({gender: "Male", age: "21"}); // because the stdin is array with flag, yeah fck it
 console.log(database)
