@@ -8,7 +8,7 @@ const ALL = ['id', 'name', 'age', 'gender', 'address'];
 
 
 
-const varToStr = varObj => Object.keys(varObj)[0];
+const varToStr = varObj => Object.keys(varObj); // to get list key of array
 
 function findIndex(prop, value) { // only one condition
     let index = database.map(function(e) {return e[prop]; }).indexOf(value);
@@ -30,33 +30,40 @@ function add(data) {
 function remove(condition){ 
     // find the index of object with condition
     var index = [];
-    if (Array.isArray(condition) === true) {    // the stdin is array, why you check it, fck!
-        for (let i = 0;i<database.length;i++) {
-            const trueCount = condition.length;
-            var found = false;
-            var count = 0;
-            for(let j = 0;j<condition.length;j++){
-                if(database[i][varToStr(condition[j])] === condition[varToStr(condition[j])]) { // the problem in there, it cant compare, the pointer for condition goes wrong
-                    count++;   
-                } else {
-                    break;
-                }
-                if(count === trueCount) {  
-                    found = true;
-                    break;
-                } else {
-                    continue;
-                }
-            }
-            if (found === true) {
-                index.push(i);
+    const trueCount = condition.length;
+    var kondisi = varToStr(condition);
+    console.log(kondisi); // check the kondisi, it founded, also check the database inside
+    for (let i = 0;i<kondisi.length;i++){
+        console.log(condition[kondisi[i]]);
+        console.log(database[1][kondisi[i]]);
+
+        for (let j = 0;j<database.length;j++) {
+            if (database[j][kondisi[i]] === condition[kondisi[i]]) {
+                console.log(j, "found");
+                continue;
             }
         }
-    } else {
-        for (let i = 0;i<database.length;i++) { // same like in that, can delete in specific object
-            if(database[i][varToStr(condition)] === condition[varToStr(condition)]) {
-                index.push(i);
+    }
+
+    for (let i = 0;i<database.length;i++) {
+        var found = false;
+        var count = 0;
+        for(let j = 0;j<condition.length;j++) {
+            if(database[i][kondisi[j]] === condition[kondisi[j]]) { // it can, but idk why cant get it
+                count++;
+                console.log(i, j, "Found");   
+            } else {
+                break;
             }
+            if(count === trueCount) {  
+                found = true;
+                break;
+            } else {
+                continue;
+            }
+        }
+        if (found === true) {
+            index.push(i);
         }
     }
     // purge with splice, it works pretty well
@@ -168,7 +175,7 @@ const user5 = {     // 4
 add([user1, user2, user3, user4, user5]);
 add({id: "6", name: "Ran", age: "25", gender: "Male", address: "World"})
 
-console.log(database);
+console.log(database.length);
 
 for (let i = 0;i<database.length;i++) {
     console.log(database[i]);
@@ -178,5 +185,6 @@ var idx = database.map(function(e) { return e['name']; }).indexOf('Kari');
 console.log(idx);
 console.log(findIndex('name', 'Kari'));
 
-remove({gender: "Female"}); // because the stdin is array with flag, yeah fck it
+
+remove({gender: "Male"}); // because the stdin is array with flag, yeah fck it
 console.log(database)
