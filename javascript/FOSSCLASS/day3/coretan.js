@@ -26,12 +26,13 @@ function add(data) {
     }
 }
 
-// remove funct (undone), index finder goes wrong for the remove and get funct
+// remove funct done
 function remove(condition){ 
     // find the index of object with condition
     var index = [];
     var kondisi = varToStr(condition);
     const trueCount = kondisi.length;
+    // check area=========================
     console.log(kondisi, "kondisi ditemukan"); // check the kondisi, it founded, also check the database inside
     for (let i = 0;i<kondisi.length;i++){   // for checking
         console.log(condition[kondisi[i]]);
@@ -44,13 +45,14 @@ function remove(condition){
             }
         }
     }
+    // ==================================
 
     for (let i = 0;i<database.length;i++) {
         var count = 0;
         for(let j = 0;j<trueCount;j++) {
             if(database[i][kondisi[j]] === condition[kondisi[j]]) { // it can, but idk why cant get it
                 count++;
-                console.log(i, j, "Found");   
+                console.log(i, j, "Found");   // checking :D
             } else {
                 break;
             }
@@ -64,10 +66,10 @@ function remove(condition){
     }
     // purge with splice, it works pretty well
     console.log(index, "index that will purged");
-    if (index.length > 1) {
+    if (index.length >= 1) {
         var count = 0;
         for (let idx = 0;idx<index.length;idx++){
-            database.splice(idx-count, 1);
+            database.splice(index[idx]-count, 1);
             count = count + 1;
         }
     }

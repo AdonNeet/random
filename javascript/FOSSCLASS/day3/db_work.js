@@ -21,40 +21,92 @@ function add(data) {
     }
 }
 
+// delete function, to delete user in database (done, its killing many time to find the solution for all function main problem, that is find the index of object with the condition)
+function remove(condition) {
+    // get the index of object, with condition
+    var index = [];
+    var kondisi = varToStr(condition);
+    const trueCount = kondisi.length;
+    for (let i = 0;i<database.length;i++) {
+        var count = 0;
+        for(let j = 0;j<trueCount;j++) {
+            if(database[i][kondisi[j]] === condition[kondisi[j]]) { 
+                count++;
+            } else {
+                break;
+            }
+            if(count === trueCount) {  // if count same with trueCount, push i to index
+                index.push(i);
+                break;
+            } else {
+                continue;
+            }
+        }
+    }
+    // purge object with splice()
+    // console.log(index, "index that will purged");    // optional, if you want to know the index that will purged
+    if (index.length >= 1) {
+        var count = 0;
+        for (let idx = 0;idx<index.length;idx++){
+            database.splice(index[idx]-count, 1);
+            count = count + 1;
+        }
+    }
+}
+
 // get function
 function get(data, condition) {
     // get the index of object, with the condition
-    const propName = varToStr(condition);
-    //var index = Data.map(function(e) { return e.name; }).indexOf('Nick');
+    var index = [];
+    var kondisi = varToStr(condition);
+    const trueCount = kondisi.length;
+    for (let i = 0;i<database.length;i++) {
+        var count = 0;
+        for(let j = 0;j<trueCount;j++) {
+            if(database[i][kondisi[j]] === condition[kondisi[j]]) { 
+                count++;
+            } else {
+                break;
+            }
+            if(count === trueCount) {  // if count same with trueCount, push i to index
+                index.push(i);
+                break;
+            } else {
+                continue;
+            }
+        }
+    }
     // get all data, i think the output promises such as a table
-    // Object.values(object);
 
 }
 
 // update function
 function update(values, condition) {
     // get the index of object, with the condition
-
-    // update property (known as subdata), i think it must can update many property in there :D
-    // now check the type data, if array do some looping
-    if(Array.isArray(values) === true ) {
-        for (value in values) {
-            const asset = varToStr(value);
-            // now, update the property :D, do not use eval in the future
-            eval(`data[index].${asset} = value`);
+    var index = [];
+    var kondisi = varToStr(condition);
+    const trueCount = kondisi.length;
+    for (let i = 0;i<database.length;i++) {
+        var count = 0;
+        for(let j = 0;j<trueCount;j++) {
+            if(database[i][kondisi[j]] === condition[kondisi[j]]) { 
+                count++;
+            } else {
+                break;
+            }
+            if(count === trueCount) {  // if count same with trueCount, push i to index
+                index.push(i);
+                break;
+            } else {
+                continue;
+            }
         }
-    } else {
-        eval(`data[index].${asset} = value`);
     }
+    // update property (known as subdata), i think it must can update many property in there :D
+
 }
 
-// delete function, to delete user in database
-function remove(condition) {
-    // get the index of object, with condition
-    
-    // remove object with splice()
-    
-}
+
 
 
 
@@ -87,3 +139,5 @@ const user3 = {
     gender: "Female",
     address: "Isekai",
 }
+
+// there is the main code to proceed all function and data above
