@@ -146,7 +146,7 @@ function get(property, condition) {
     for (let i = 0;i<headCount;i++) {
         var strLen = 0;
         for (let idx = 0;idx<index.length;idx++) {
-            if (database[idx][property[i]].length > strLen) {   // check the bigLen of value
+            if (database[index[idx]][property[i]].length > strLen) {   // check the bigLen of value
                 strLen = database[idx][property[i]].length;
             }
         }
