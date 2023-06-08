@@ -26,6 +26,50 @@ function range(start, end) {
     return ans;
 }
 
+// find index with condition
+function findIndex(condition) {
+    // find the index of obj with condition
+    var index = [];
+    var kondisi = varToStr(condition);
+    const trueCount = kondisi.length;
+    if (condition === NOTHING) {
+        for (let i = 0;i<database.length;i++) {
+            index.push(i);
+        }
+    } else {
+        for (let i = 0;i<database.length;i++) {
+            var count = 0;
+            for(let j = 0;j<trueCount;j++) {
+                if (Array.isArray(condition[kondisi[j]]) === true) {    // Or Statement
+                    for (let k = 0;k<condition[kondisi[j]].length;k++) {
+                        if(database[i][kondisi[j]].toString() === condition[kondisi[j]][k].toString()) { 
+                            count++;
+                        } else if(k === condition[kondisi[j]].length - 1) {
+                            break;
+                        } else {
+                            continue;
+                        }
+                    }
+    
+                } else {
+                    if(database[i][kondisi[j]].toString() === condition[kondisi[j]].toString()) {     // And statement
+                        count++;
+                    } else {
+                        break;
+                    }
+                }
+                if(count === trueCount) {  // if count same with trueCount, push i to index
+                    index.push(i);
+                    break;
+                } else {
+                    continue;
+                }   
+            }
+        }
+    }
+    return index;
+}
+
 // add function (done, just throw them into database)
 function add(data=null) {
     if (Array.isArray(data) === true) {
@@ -44,44 +88,7 @@ function add(data=null) {
 // remove function, to delete user in database (done, its killing many time to find the solution for all function main problem, that is find the index of object with the condition)
 function remove(condition) {
     // find the index of obj with condition
-    var index = [];
-    var kondisi = varToStr(condition);
-    const trueCount = kondisi.length;
-    if (condition === NOTHING) {
-        for (let i = 0;i<database.length;i++) {
-            index.push(i);
-        }
-    } else {
-        for (let i = 0;i<database.length;i++) {
-            var count = 0;
-            for(let j = 0;j<trueCount;j++) {
-                if (Array.isArray(condition[kondisi[j]]) === true) {    // Or Statement
-                    for (let k = 0;k<condition[kondisi[j]].length;k++) {
-                        if(database[i][kondisi[j]].toString() === condition[kondisi[j]][k].toString()) { 
-                            count++;
-                        } else if(k === condition[kondisi[j]].length - 1) {
-                            break;
-                        } else {
-                            continue;
-                        }
-                    }
-    
-                } else {
-                    if(database[i][kondisi[j]].toString() === condition[kondisi[j]].toString()) {     // And statement
-                        count++;
-                    } else {
-                        break;
-                    }
-                }
-                if(count === trueCount) {  // if count same with trueCount, push i to index
-                    index.push(i);
-                    break;
-                } else {
-                    continue;
-                }   
-            }
-        }
-    }
+    var index = findIndex(condition);
     // purge object with splice()
     // console.log(index, "index that will purged");    // optional, if you want to know the index
     if (index.length >= 1) {
@@ -96,47 +103,11 @@ function remove(condition) {
     }
 }
 
+
 // get function
 function get(property, condition) {
     // find the index of obj with condition
-    var index = [];
-    var kondisi = varToStr(condition);
-    const trueCount = kondisi.length;
-    if (condition === NOTHING) {
-        for (let i = 0;i<database.length;i++) {
-            index.push(i);
-        }
-    } else {
-        for (let i = 0;i<database.length;i++) {
-            var count = 0;
-            for(let j = 0;j<trueCount;j++) {
-                if (Array.isArray(condition[kondisi[j]]) === true) {    // Or Statement
-                    for (let k = 0;k<condition[kondisi[j]].length;k++) {
-                        if(database[i][kondisi[j]].toString() === condition[kondisi[j]][k].toString()) { 
-                            count++;
-                        } else if(k === condition[kondisi[j]].length - 1) {
-                            break;
-                        } else {
-                            continue;
-                        }
-                    }
-    
-                } else {
-                    if(database[i][kondisi[j]].toString() === condition[kondisi[j]].toString()) {     // And statement
-                        count++;
-                    } else {
-                        break;
-                    }
-                }
-                if(count === trueCount) {  // if count same with trueCount, push i to index
-                    index.push(i);
-                    break;
-                } else {
-                    continue;
-                }   
-            }
-        }
-    }
+    var index = findIndex(condition);
     // console.log(index, "index that will get-ed");    // optional, if you want to know the index
     // to find a length of each column
     var headCount = property.length; 
@@ -147,7 +118,7 @@ function get(property, condition) {
         var strLen = 0;
         for (let idx = 0;idx<index.length;idx++) {
             if (database[index[idx]][property[i]].length > strLen) {   // check the bigLen of value
-                strLen = database[idx][property[i]].length;
+                strLen = database[index[idx]][property[i]].length;
             }
         }
         if (strLen > property[i].length) {
