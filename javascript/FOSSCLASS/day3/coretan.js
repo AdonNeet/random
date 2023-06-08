@@ -71,12 +71,14 @@ function remove(condition){
             database.splice(index[idx]-count, 1);
             count = count + 1;
         }
+    } else {
+        console.log("None deleted");
     }
     
 }
 
 
-// get funct, undone, sike
+// get funct, done, sike
 function get(property, condition){   // only for one user (?)
     // find the index of obj with condition
     var index = [];
@@ -98,52 +100,104 @@ function get(property, condition){   // only for one user (?)
             }
         }
     }
-    console.log(index, "index that will get-ed");
+    console.log(index, "index that will get-ed,", index.length, "is index length");
 
     // the kind of subdata that want to get-ed, the output promises like a table, i think
     console.log(property, "property that want get-ed"); // check the stdin
-    /*
-    for (let idx = 0;idx<index.length;idx++) {      // yeah, it work, but didnt like table
-        for (let i =0;i<property.length;i++) {
-            console.log((database[idx][property[i]]));
-        }
-    }
-    */
     // to find a length of each column
     var headCount = property.length; 
     var lengtHead = [];     // it minim length, depend on head and value length, then add 2 or 3 space when do stdout
     var borderIdx = [];
-    var lenCount = 0;
+    var lenCount = 1;
     for (let i = 0;i<headCount;i++) {
-        var bigLen = 0;
+        var strLen = 0;
         for (let idx = 0;idx<index.length;idx++) {
-            if (database[idx][property[i]].length > bigLen) {   // check the bigLen of value
-                bigLen = database[idx][property[i]].length;
+            if (database[idx][property[i]].length > strLen) {   // check the bigLen of value
+                strLen = database[idx][property[i]].length;
             }
         }
-        if (bigLen > property[i].length) {
-            lengtHead.push(bigLen);
-            lenCount = lenCount + bigLen + 2; // add 3 to make the table doesnt look cramped
+        if (strLen > property[i].length) {
+            lengtHead.push(strLen);
+            lenCount = lenCount + strLen + 3; // add 3 to make the table doesnt look cramped
+            borderIdx.push(lenCount-1);
         } else {
             lengtHead.push(property[i].length);
-            borderIdx.push(property[i].length+1);
             lenCount = lenCount + property[i].length + 3;
+            borderIdx.push(lenCount-1);
         }
     }
-    console.log(lengtHead, "that is the length every head", lenCount, "is the length total")
+    console.log(lengtHead, "that is the length every head", lenCount, "is the length total");
+    console.log(borderIdx, "index for border");
     // to stdout the table, and the content
     var aCount = 0;
     var aPost = 0;
-    var headRest = '';
-    for (let i = 0;i<lenCount;i++) {
-        if (i === borderIdx[aPost]){
-            headRest = headRest + "|";
-        } else { // stuck in there, idk how to make the itteration
-
+    var bPost = 0;
+    var rest = '';
+    // stdout header
+    while (aCount < lenCount) { // the indexing not from 0, but normal decimal, it depended on aCount (it start from 0)
+        if (aCount === 0 || aCount === borderIdx[aPost]){
+           rest += "|";
+            aCount++;
+            if (aCount === 1) {
+                continue;
+            } else {
+                aPost++;
+            }
+        } else if (aCount === 1 || aCount === borderIdx[aPost-1]+1) { 
+            rest += property[bPost];
+            // console.log(rest);  // check
+            aCount = aCount + lengtHead[bPost];
+            bPost++;
+        } else {
+            rest = rest+ " ";
+            aCount++;
+        }
+        if (aCount === lenCount) {
+            console.log(rest);  // stdout head
+            rest = ''; // reset
         }
     }
- 
-    
+    aCount = aPost = bPost = 0; // reset
+    // stdout line between header and content
+    for (let i = 0;i<lenCount;i++) {
+        rest += '-';
+        if (i === lenCount-1) {
+            console.log(rest); // stdout the line
+            rest = ''; // reset
+        }
+    }
+    // now is the content
+    if (index.length >= 1) {
+        for (let idx = 0;idx<index.length;idx++){
+            // console.log(idx);
+            while (aCount < lenCount) { // the indexing not from 0, but normal decimal, it depended on aCount 
+                if (aCount === 0 || aCount === borderIdx[aPost]){
+                   rest += "|";
+                    aCount++;
+                    if (aCount === 1) {
+                        continue;
+                    } else {
+                        aPost++;
+                    }
+                } else if (aCount === 1 || aCount === borderIdx[aPost-1]+1) { 
+                    rest += database[index[idx]][property[bPost]];
+                    // console.log(rest);  // check
+                    aCount = aCount + database[index[idx]][property[bPost]].length;
+                    bPost++;
+                } else {
+                    rest = rest+ " ";
+                    aCount++;
+                }
+                if (aCount === lenCount) {
+                    console.log(rest);  // stdout content on that index
+                }
+            }
+            rest = ''; // reset
+            aCount = aPost = bPost = 0; // reset
+        }
+    } else {
+        console.log("\nNone found");
+    }
 }
 
 
@@ -209,7 +263,7 @@ for (let i = 0;i<database.length;i++) { // to check the content of database
 // console.log(idx);
 // console.log(findIndex('name', 'Kari'));
 
-get([id, name, gender], {id: '1'}); // to stdout the id, name, gender in like table condition
+get([id, name, gender], {id : "1"}) // to stdout the id, name, gender in like table condition
 
 /*
 remove({gender: "Female"}); // to remove the Female user
