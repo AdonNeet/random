@@ -4,7 +4,7 @@
     Github : https://github.com/AdonNeet/Random/blob/main/javascript/FOSSCLASS/day3/db_work.js
     Date   : M6/D5/Y2023 (created)
     Note   : its just a basic dbms system replicate, it didnt have something like "order by", "join", and something else that complicated
-    ToDo   : write the main code (to use the function) in the bottom line, or you can make it interactive in the shell, i didnt make it :)
+    ToDo   : write the main code (to use the function) in the bottom line, or you can make it interactive in the shell, i didnt make it in that way :)
 */
 
 const database = [];
@@ -27,13 +27,17 @@ function range(start, end) {
 }
 
 // add function (done, just throw them into database)
-function add(data) {
+function add(data=null) {
     if (Array.isArray(data) === true) {
         for (let i = 0;i<data.length;i++){
             database.push(data[i]);
         }
+        console.log((data.length).toString(), "data added in database\n");
+    } else if (data ===  null) {
+        console.log("Nothing added in database\n");
     } else {
         database.push(data);   
+        console.log("1 data added in database\n");
     }
 }
 
@@ -86,8 +90,9 @@ function remove(condition) {
             database.splice(index[idx]-count, 1);
             count = count + 1;
         }
+        console.log((index.length).toString(), "data deleted in database\n");
     } else {
-        console.log("None deleted");
+        console.log("None data deleted in database");
     }
 }
 
@@ -220,9 +225,10 @@ function get(property, condition) {
             rest = ''; // reset
             aCount = aPost = bPost = 0; // reset
         }
-        console.log("\n");
+        console.log(""); // endline, traditional way
+        console.log((index.length).toString(), "data founded in database\n");
     } else {
-        console.log("\nNone found\n");
+        console.log("\nNone data founded in database\n");
     }
 }
 
@@ -232,11 +238,8 @@ function get(property, condition) {
 
 
 
-
-
-
 // there is data that will inputed in database, templated condition
-const user1 = {
+const user1 = {     // 0
     id: 1,
     name: "Adon",
     age: "18",
@@ -244,7 +247,7 @@ const user1 = {
     address: "World",
 }
 
-const user2 = {
+const user2 = {     // 1
     id: 2,
     name: "Neet",
     age: "21",
@@ -252,7 +255,7 @@ const user2 = {
     address: "Isekai",
 }
 
-const user3 = {
+const user3 = {     // 2
     id: 3,
     name: "Kari",
     age: "23",
@@ -290,5 +293,4 @@ add({
 get([id, name, gender], NOTHING);
 remove({id: range(1,2)});
 get(ALL, NOTHING);
-
 get([name, address], {id: range(5,6)});
