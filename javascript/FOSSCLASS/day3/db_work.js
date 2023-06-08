@@ -3,8 +3,8 @@
     Author : adon_neet
     Github : https://github.com/AdonNeet/Random/blob/main/javascript/FOSSCLASS/day3/db_work.js
     Date   : M6/D5/Y2023 (created)
-    Note   : the condition just "And" condition, i didnt make the "Or" condition because the time remaining just killed by "And" conidtion
-
+    Note   : its just a basic dbms system replicate, it didnt have something like "order by", "join", and something else that complicated
+    ToDo   : write the main code (to use the function) in the bottom line, or you can make it interactive in the shell, i didnt make it :)
 */
 
 const database = [];
@@ -12,9 +12,19 @@ const database = [];
 // the default coloumn in this database
 const [id, name, age, gender, address] = ['id', 'name', 'age', 'gender', 'address'];
 const ALL = ['id', 'name', 'age', 'gender', 'address'];
+const NOTHING = 'nothing';
 
 // var to string, to get the name key of array, it also can get used in object orientated (to get the key name of property)
 const varToStr = varObj => Object.keys(varObj);
+
+// range function, integer nor number range purpose
+function range(start, end) {
+    var ans = [];
+    for (let i = start; i <= end; i++) {
+        ans.push(i);
+    }
+    return ans;
+}
 
 // add function (done, just throw them into database)
 function add(data) {
@@ -27,30 +37,49 @@ function add(data) {
     }
 }
 
-// delete function, to delete user in database (done, its killing many time to find the solution for all function main problem, that is find the index of object with the condition)
+// remove function, to delete user in database (done, its killing many time to find the solution for all function main problem, that is find the index of object with the condition)
 function remove(condition) {
-    // get the index of object, with condition
+    // find the index of obj with condition
     var index = [];
     var kondisi = varToStr(condition);
     const trueCount = kondisi.length;
-    for (let i = 0;i<database.length;i++) {
-        var count = 0;
-        for(let j = 0;j<trueCount;j++) {
-            if(database[i][kondisi[j]] === condition[kondisi[j]]) { 
-                count++;
-            } else {
-                break;
-            }
-            if(count === trueCount) {  // if count same with trueCount, push i to index
-                index.push(i);
-                break;
-            } else {
-                continue;
+    if (condition === NOTHING) {
+        for (let i = 0;i<database.length;i++) {
+            index.push(i);
+        }
+    } else {
+        for (let i = 0;i<database.length;i++) {
+            var count = 0;
+            for(let j = 0;j<trueCount;j++) {
+                if (Array.isArray(condition[kondisi[j]]) === true) {    // Or Statement
+                    for (let k = 0;k<condition[kondisi[j]].length;k++) {
+                        if(database[i][kondisi[j]].toString() === condition[kondisi[j]][k].toString()) { 
+                            count++;
+                        } else if(k === condition[kondisi[j]].length - 1) {
+                            break;
+                        } else {
+                            continue;
+                        }
+                    }
+    
+                } else {
+                    if(database[i][kondisi[j]].toString() === condition[kondisi[j]].toString()) {     // And statement
+                        count++;
+                    } else {
+                        break;
+                    }
+                }
+                if(count === trueCount) {  // if count same with trueCount, push i to index
+                    index.push(i);
+                    break;
+                } else {
+                    continue;
+                }   
             }
         }
     }
     // purge object with splice()
-    // console.log(index, "index that will purged");    // optional, if you want to know the index that will purged
+    // console.log(index, "index that will purged");    // optional, if you want to know the index
     if (index.length >= 1) {
         var count = 0;
         for (let idx = 0;idx<index.length;idx++){
@@ -68,22 +97,42 @@ function get(property, condition) {
     var index = [];
     var kondisi = varToStr(condition);
     const trueCount = kondisi.length;
-    for (let i = 0;i<database.length;i++) {
-        var count = 0;
-        for(let j = 0;j<trueCount;j++) {
-            if(database[i][kondisi[j]] === condition[kondisi[j]]) { 
-                count++;
-            } else {
-                break;
-            }
-            if(count === trueCount) {  // if count same with trueCount, push i to index
-                index.push(i);
-                break;
-            } else {
-                continue;
+    if (condition === NOTHING) {
+        for (let i = 0;i<database.length;i++) {
+            index.push(i);
+        }
+    } else {
+        for (let i = 0;i<database.length;i++) {
+            var count = 0;
+            for(let j = 0;j<trueCount;j++) {
+                if (Array.isArray(condition[kondisi[j]]) === true) {    // Or Statement
+                    for (let k = 0;k<condition[kondisi[j]].length;k++) {
+                        if(database[i][kondisi[j]].toString() === condition[kondisi[j]][k].toString()) { 
+                            count++;
+                        } else if(k === condition[kondisi[j]].length - 1) {
+                            break;
+                        } else {
+                            continue;
+                        }
+                    }
+    
+                } else {
+                    if(database[i][kondisi[j]].toString() === condition[kondisi[j]].toString()) {     // And statement
+                        count++;
+                    } else {
+                        break;
+                    }
+                }
+                if(count === trueCount) {  // if count same with trueCount, push i to index
+                    index.push(i);
+                    break;
+                } else {
+                    continue;
+                }   
             }
         }
     }
+    // console.log(index, "index that will get-ed");    // optional, if you want to know the index
     // to find a length of each column
     var headCount = property.length; 
     var lengtHead = [];     // it minim length, depend on head and value length, then add 2 or 3 space when do stdout
@@ -156,9 +205,9 @@ function get(property, condition) {
                         aPost++;
                     }
                 } else if (aCount === 1 || aCount === borderIdx[aPost-1]+1) { 
-                    rest += database[index[idx]][property[bPost]];
+                    rest += database[index[idx]][property[bPost]].toString();
                     // console.log(rest);  // check
-                    aCount = aCount + database[index[idx]][property[bPost]].length;
+                    aCount = aCount + (database[index[idx]][property[bPost]].toString()).length;
                     bPost++;
                 } else {
                     rest = rest+ " ";
@@ -171,8 +220,9 @@ function get(property, condition) {
             rest = ''; // reset
             aCount = aPost = bPost = 0; // reset
         }
+        console.log("\n");
     } else {
-        console.log("\nNone found");
+        console.log("\nNone found\n");
     }
 }
 
@@ -185,9 +235,9 @@ function get(property, condition) {
 
 
 
-// there is data that will inputed in database
+// there is data that will inputed in database, templated condition
 const user1 = {
-    id: "1",
+    id: 1,
     name: "Adon",
     age: "18",
     gender: "Male",
@@ -195,7 +245,7 @@ const user1 = {
 }
 
 const user2 = {
-    id: "2",
+    id: 2,
     name: "Neet",
     age: "21",
     gender: "Male",
@@ -203,13 +253,42 @@ const user2 = {
 }
 
 const user3 = {
-    id: "3",
+    id: 3,
     name: "Kari",
     age: "23",
     gender: "Female",
     address: "Isekai",
 }
 
+const user4 = {     // 3
+    id: 4,
+    name: "Weebs",
+    age: "21",
+    gender: "Male",
+    address: "Isekai",
+}
+
+const user5 = {     // 4
+    id: 5,
+    name: "Basi",
+    age: "21",
+    gender: "Female",
+    address: "Isekai",
+}
+
 // there is the main code to proceed all function and data above
-add([user1, user2, user3]);
-get([id, name, gender], {gender: "Male"})
+add([user1, user2, user3, user4, user5]);
+add({
+    id: 6, 
+    name: "Ran", 
+    age: "25", 
+    gender: "Male", 
+    address: "World"
+})
+
+
+get([id, name, gender], NOTHING);
+remove({id: range(1,2)});
+get(ALL, NOTHING);
+
+get([name, address], {id: range(5,6)});

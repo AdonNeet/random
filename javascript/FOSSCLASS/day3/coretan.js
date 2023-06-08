@@ -263,7 +263,7 @@ for (let i = 0;i<database.length;i++) { // to check the content of database
 // console.log(idx);
 // console.log(findIndex('name', 'Kari'));
 
-get([id, name, gender], {id : "1"}) // to stdout the id, name, gender in like table condition
+get([id, name, gender], {id : ("1", "2","3")}) // to stdout the id, name, gender in like table condition
 
 /*
 remove({gender: "Female"}); // to remove the Female user
