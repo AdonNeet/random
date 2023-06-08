@@ -7,7 +7,7 @@
     ToDo   : write the main code (to use the function) in the bottom line, or you can make it interactive in the shell, i didnt make it in that way :)
 */
 
-const database = [];
+const database = [];    // just one database for one entity
 
 // the default coloumn in this database
 const [id, name, age, gender, address] = ['id', 'name', 'age', 'gender', 'address'];
@@ -33,9 +33,7 @@ function findIndex(condition) {
     var kondisi = varToStr(condition);
     const trueCount = kondisi.length;
     if (condition === NOTHING) {
-        for (let i = 0;i<database.length;i++) {
-            index.push(i);
-        }
+        index = range(0, database.length-1);
     } else {
         for (let i = 0;i<database.length;i++) {
             var count = 0;
@@ -67,7 +65,7 @@ function findIndex(condition) {
             }
         }
     }
-    return index;
+    return index;  // dont dorget to return the ans (index)
 }
 
 // add function (done, just throw them into database)
@@ -103,7 +101,6 @@ function remove(condition) {
     }
 }
 
-
 // get function
 function get(property, condition) {
     // find the index of obj with condition
@@ -131,7 +128,7 @@ function get(property, condition) {
             borderIdx.push(lenCount-1);
         }
     }
-    // to stdout the table, and the content
+    // var to stdout the table, and the content
     var aCount = 0;
     var aPost = 0;
     var bPost = 0;
@@ -203,7 +200,11 @@ function get(property, condition) {
     }
 }
 
-
+// update function
+function update(property, condition) {
+    // find the index of obj with condition
+    var index = findIndex(condition);
+}
 
 
 
@@ -252,7 +253,7 @@ const user5 = {     // 4
 
 // there is the main code to proceed all function and data above
 add([user1, user2, user3, user4, user5]);
-add({
+add({               // 5
     id: 6, 
     name: "Ran", 
     age: "25", 
