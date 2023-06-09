@@ -2,8 +2,11 @@
 
     Author : adon_neet
     Github : https://github.com/AdonNeet/Random/blob/main/javascript/FOSSCLASS/day3/db_work.js
-    Date   : M6/D5/Y2023 (created)
-    Note   : its just a basic dbms system replicate, it didnt have something like "order by", "join", and something else that complicated
+    Date   : M6/D5/Y2023 (created), M6/D9/Y2023 (stopped before deadline)
+    Note   : 
+        - its just a basic dbms system replicate, it didnt have something like "order by", "join", and something else that complicated
+        - i didnt make a sorting object mechanism, because i didnt have time left before the deadline
+        - the task is simple, but myself make it more diff by adding some feature (like Or statement, And statement, range, undefined thing, etc) :v
     ToDo   : write the main code (to use the function) in the bottom line, or you can make it interactive in the shell, i didnt make it in that way :)
 */
 
@@ -40,20 +43,39 @@ function findIndex(condition) {
             for(let j = 0;j<trueCount;j++) {
                 if (Array.isArray(condition[kondisi[j]]) === true) {    // Or Statement
                     for (let k = 0;k<condition[kondisi[j]].length;k++) {
-                        if(database[i][kondisi[j]].toString() === condition[kondisi[j]][k].toString()) { 
-                            count++;
-                        } else if(k === condition[kondisi[j]].length - 1) {
-                            break;
+                        if (condition[kondisi[j]][k] === undefined) {
+                            if (database[i][kondisi[j]] === undefined) {
+                                count++;
+                            }
                         } else {
-                            continue;
+                            if (database[i][kondisi[j]] === undefined) {
+                                continue;
+                            } else {
+                                if(database[i][kondisi[j]].toString() === condition[kondisi[j]][k].toString()) { 
+                                    count++;
+                                } else if(k === condition[kondisi[j]].length - 1) {
+                                    break;
+                                } else {
+                                    continue;
+                                }
+                            }
                         }
                     }
-    
                 } else {
-                    if(database[i][kondisi[j]].toString() === condition[kondisi[j]].toString()) {     // And statement
-                        count++;
+                    if (condition[kondisi[j]] === undefined) {
+                        if (database[i][kondisi[j]] === undefined) {
+                            count++;
+                        }
                     } else {
-                        break;
+                        if (database[i][kondisi[j]] === undefined) {
+                            break;
+                        } else {
+                            if(database[i][kondisi[j]].toString() === condition[kondisi[j]].toString()) {     // And statement
+                                count++;
+                            } else {
+                                break;
+                            }
+                        }
                     }
                 }
                 if(count === trueCount) {  // if count same with trueCount, push i to index
@@ -114,8 +136,12 @@ function get(property, condition) {
     for (let i = 0;i<headCount;i++) {
         var strLen = 0;
         for (let idx = 0;idx<index.length;idx++) {
-            if (database[index[idx]][property[i]].length > strLen) {   // check the bigLen of value
-                strLen = database[index[idx]][property[i]].length;
+            if (database[index[idx]][property[i]] === undefined) {
+                strLen = "undefined".length;
+            } else {
+                if ((database[index[idx]][property[i]].toString()).length > strLen) {   // check the bigLen of value
+                    strLen = (database[index[idx]][property[i]].toString()).length;
+                }
             }
         }
         if (strLen > property[i].length) {
@@ -145,10 +171,10 @@ function get(property, condition) {
             }
         } else if (aCount === 1 || aCount === borderIdx[aPost-1]+1) { 
             rest += property[bPost];
-            aCount = aCount + lengtHead[bPost];
+            aCount = aCount + property[bPost].length;
             bPost++;
-        } else {
-            rest = rest+ " ";
+        } else { 
+            rest = rest + " ";
             aCount++;
         }
         if (aCount === lenCount) {
@@ -177,13 +203,17 @@ function get(property, condition) {
                     } else {
                         aPost++;
                     }
-                } else if (aCount === 1 || aCount === borderIdx[aPost-1]+1) { 
-                    rest += database[index[idx]][property[bPost]].toString();
-                    // console.log(rest);  // check
-                    aCount = aCount + (database[index[idx]][property[bPost]].toString()).length;
-                    bPost++;
+                } else if (aCount === 1 || aCount === borderIdx[aPost-1]+1) {
+                    if (database[index[idx]][property[bPost]] === undefined) {
+                        rest += "undefined";
+                        aCount += "undefined".length; 
+                    } else {
+                        rest += database[index[idx]][property[bPost]].toString();
+                        aCount += (database[index[idx]][property[bPost]].toString()).length;
+                        bPost++;
+                    }
                 } else {
-                    rest = rest+ " ";
+                    rest = rest + " ";
                     aCount++;
                 }
                 if (aCount === lenCount) {
@@ -204,17 +234,28 @@ function get(property, condition) {
 function update(property, condition) {
     // find the index of obj with condition
     var index = findIndex(condition);
+    // then change the value of property
+    if (index.length >= 1) {
+        var prop = varToStr(property);
+        for (let idx = 0;idx<index.length;idx++) {
+            for (let valIdx = 0;valIdx<prop.length;valIdx++) {
+                database[index[idx]][prop[valIdx]] = property[prop[valIdx]];
+            }
+        }
+        console.log((index.length).toString(), "data was changed in database\n");
+    } else {
+        console.log("Nothing changed");
+    }
 }
 
 
 
 
-
-// there is data that will inputed in database, templated condition
+// there is default data that will inputed in database, templated condition
 const user1 = {     // 0
     id: 1,
     name: "Adon",
-    age: "18",
+    age: 18,
     gender: "Male",
     address: "World",
 }
@@ -222,7 +263,7 @@ const user1 = {     // 0
 const user2 = {     // 1
     id: 2,
     name: "Neet",
-    age: "21",
+    age: 21,
     gender: "Male",
     address: "Isekai",
 }
@@ -230,7 +271,7 @@ const user2 = {     // 1
 const user3 = {     // 2
     id: 3,
     name: "Kari",
-    age: "23",
+    age: 23,
     gender: "Female",
     address: "Isekai",
 }
@@ -238,7 +279,7 @@ const user3 = {     // 2
 const user4 = {     // 3
     id: 4,
     name: "Weebs",
-    age: "21",
+    age: 21,
     gender: "Male",
     address: "Isekai",
 }
@@ -246,23 +287,109 @@ const user4 = {     // 3
 const user5 = {     // 4
     id: 5,
     name: "Basi",
-    age: "21",
+    age: 21,
     gender: "Female",
     address: "Isekai",
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // there is the main code to proceed all function and data above
-add([user1, user2, user3, user4, user5]);
-add({               // 5
-    id: 6, 
+add([user1, user2, user3, user4, user5]); // its from templated user
+add({   // intruder in id order, i didnt make a sorting system which is compare the id between object (like "order by" function in MySQL)               
+    id: 1000, 
     name: "Ran", 
-    age: "25", 
+    age: 25, 
     gender: "Male", 
-    address: "World"
-})
+});
+add([
+    {
+        id: 7,
+        name: "KaoruSuga",
+        age: 19,
+        gender: "Male",
+// address undefined
+    },
+    {
+        id: 8,
+        name: "Elaina",
+        age: 18,
+        gender: "Female",
+        address: "Isekai"
+    },
+    {
+        id: 9,
+        name: "Watson Amelia",
+        age: 20,
+        gender: "Female",
+        address: "live2d"
+    },
+    {
+        id: 10,
+        name: "Weebs",
+        age: 18,
+        gender: "Female",
+        address: "Isekai"
+    }
+])
 
 
-get([id, name, gender], NOTHING);
-remove({id: range(1,2)});
+// get all information about user
 get(ALL, NOTHING);
-get([name, address], {id: range(5,6)});
+
+// then we remove the intruder, i didnt make the dynamicSort to sort tha array of object :D
+remove({id: 1000});
+get(ALL, NOTHING);
+
+// then Weebs (male) turn out into 22 today
+update({age: 22}, {name: "Weebs", gender: "Male"});
+get([name, age], {name: "Weebs", gender: "Male"});
+
+// i want know the name someone that she is 18 to 21
+get([name, age], {gender: "Female", age: range(18,21)});
+
+// i want know the name of someone that is Female, in live2d
+get([name], {address: "live2d"});
+
+// they all from undefined, isekai, and live2d become real :v
+update({address: "World"}, {address: [undefined, "Isekai", "live2d"]});
+get(ALL, {address: "World"});

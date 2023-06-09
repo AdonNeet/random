@@ -269,3 +269,45 @@ get([id, name, gender], {id : ("1", "2","3")}) // to stdout the id, name, gender
 remove({gender: "Female"}); // to remove the Female user
 console.log(database)
 */
+
+// find index with condition
+function findIndex(condition) {
+    // find the index of obj with condition
+    var index = [];
+    var kondisi = varToStr(condition);
+    const trueCount = kondisi.length;
+    if (condition === NOTHING) {
+        index = range(0, database.length-1);
+    } else {
+        for (let i = 0;i<database.length;i++) {
+            var count = 0;
+            for(let j = 0;j<trueCount;j++) {
+                if (Array.isArray(condition[kondisi[j]]) === true) {    // Or Statement
+                    for (let k = 0;k<condition[kondisi[j]].length;k++) {
+                        if(database[i][kondisi[j]].toString() === condition[kondisi[j]][k].toString()) { 
+                            count++;
+                        } else if(k === condition[kondisi[j]].length - 1) {
+                            break;
+                        } else {
+                            continue;
+                        }
+                    }
+    
+                } else {
+                    if(database[i][kondisi[j]].toString() === condition[kondisi[j]].toString()) {     // And statement
+                        count++;
+                    } else {
+                        break;
+                    }
+                }
+                if(count === trueCount) {  // if count same with trueCount, push i to index
+                    index.push(i);
+                    break;
+                } else {
+                    continue;
+                }   
+            }
+        }
+    }
+    return index;  // dont dorget to return the ans (index)
+}
