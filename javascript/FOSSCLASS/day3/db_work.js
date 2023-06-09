@@ -381,15 +381,15 @@ remove({id: 1000});
 get(ALL, NOTHING);
 
 // then Weebs (male) turn out into 22 today
-update({age: 22}, {name: "Weebs", gender: "Male"});
+update({age: 22}, {name: "Weebs", gender: "Male"}); // and statement
 get([name, age], {name: "Weebs", gender: "Male"});
 
 // i want know the name someone that she is 18 to 21
-get([name, age], {gender: "Female", age: range(18,21)});
+get([name, age], {gender: "Female", age: range(18,21)});    // yeah x < [...] < y
 
 // i want know the name of someone that is Female, in live2d
 get([name], {address: "live2d"});
 
 // they all from undefined, isekai, and live2d become real :v
-update({address: "World"}, {address: [undefined, "Isekai", "live2d"]});
+update({address: "World"}, {address: [undefined, "Isekai", "live2d"]}); // yeah, Or statement
 get(ALL, {address: "World"});
