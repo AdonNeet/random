@@ -376,7 +376,7 @@ add([
 // get all information about user
 get(ALL, NOTHING);
 
-// then we remove the intruder, i didnt make the dynamicSort to sort tha array of object :D
+// then we remove the intruder, i didnt make the dynamicSort to sort that array of object (its complicated) :D
 remove({id: 1000});
 get(ALL, NOTHING);
 
@@ -393,3 +393,11 @@ get([name], {address: "live2d"});
 // they all from undefined, isekai, and live2d become real :v
 update({address: "World"}, {address: [undefined, "Isekai", "live2d"]}); // yeah, Or statement
 get(ALL, {address: "World"});
+
+// delete someone that 20 or 22 
+remove({age: [20, 22]});
+get(ALL, NOTHING);
+
+// delete 18 or 20 and Male
+remove({age: [18, 20], gender: ["Male"]});      // the Or statement just for same property :)
+get(ALL, NOTHING)
