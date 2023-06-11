@@ -400,4 +400,4 @@ get(ALL, NOTHING);
 
 // delete 18 or 20 and Male
 remove({age: [18, 20], gender: ["Male"]});      // the Or statement just for same property :)
-get(ALL, NOTHING)
+get(ALL, NOTHING);
