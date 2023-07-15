@@ -1,6 +1,6 @@
 /*
  *		Author	: AdonNeet
- *		Date	: 2023-07-07 13:34:32.000-05:00
+ *		Date	: 2023-07-11 14:56:21.000-05:00
 */
  
 #pragma GCC optimize("Ofast")
@@ -24,15 +24,14 @@
 #include <stack>
 #include <iomanip>
 #include <fstream>
-
-#include <climits>
-#include <boost/multiprecision/cpp_int.hpp>	// use boost lib
+ 
+// #include <boost/multiprecision/cpp_int.hpp> // for big_int than ll
  
 using namespace std;
-using namespace boost::multiprecision;	// the namespace for boost lib
+// using namespace boost::multiprecision; // namespace for boost
  
 typedef long long ll;
-typedef long long int lli;
+typedef unsigned long long ull;
 typedef long double ld;
 typedef pair<int,int> p32;
 typedef pair<ll,ll> p64;
@@ -61,28 +60,60 @@ double eps = 1e-12;
 #define all(x) (x).begin(), (x).end()
 #define sz(x) ((ll)(x).size())
  
-cpp_int fakt(cpp_int n)
-{
-	if(n==0)
-	return 1;
-	return n*fakt(n-1);
+
+void georgeCantor(int n)
+{    
+    int i = 1; // let i = numerator
+    int j = 1; // let j = denominator
+    int k = 1; // to keep the check of no. of terms
+         
+    // loop till k is not equal to n
+    while (k < n)
+    {
+        j++ , k++;
+         
+        // check if k is already equal to N
+        // then the first term is the required
+        // rational number
+        if (k == n)
+            break;
+         
+        // loop for traversing from right to left
+        // downwards diagonally
+        while (j > 1 && k < n) {
+            i++, j--, k++;
+        }
+         
+        if (k == n)
+           break;
+         
+        i++, k++;
+         
+        if (k == n)
+           break;
+         
+        // loop for traversing from left
+        // to right upwards diagonally
+        while (i > 1 && k < n) {
+            i--, j++, k++;
+        }       
+    }   
+    cout << "TERM " << n << " IS " << i << "/" << j << endl;
 }
-
-
+ 
+// driver code
 int main()
 {
     #ifndef ONLINE_JUDGE
-	freopen("input.txt", "r", stdin);
-	freopen("output.txt", "w", stdout);
-	#endif
-	
-	fast_cin();
-    int t,n; cpp_int ans;
-	cin>>t;
-	while(t--){
-		cin>>n;
-		cout << fakt(n) << ln;
-	}
-	
-	return 0;
+    freopen("input.txt", "r", stdin);
+    freopen("output.txt", "w", stdout);
+    #endif
+ 
+    fast_cin();
+    int n, t; cin >> t; 
+    while(t--){
+        cin >> n;
+        georgeCantor(n);
+    }    
+    return 0;
 }

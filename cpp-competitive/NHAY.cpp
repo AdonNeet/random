@@ -1,6 +1,6 @@
 /*
  *		Author	: AdonNeet
- *		Date	: 2023-07-07 13:34:32.000-05:00
+ *		Date	: 2023-07-08 20:48:58.000-05:00
 */
  
 #pragma GCC optimize("Ofast")
@@ -24,15 +24,11 @@
 #include <stack>
 #include <iomanip>
 #include <fstream>
-
-#include <climits>
-#include <boost/multiprecision/cpp_int.hpp>	// use boost lib
  
 using namespace std;
-using namespace boost::multiprecision;	// the namespace for boost lib
  
 typedef long long ll;
-typedef long long int lli;
+typedef unsigned long long ull;
 typedef long double ld;
 typedef pair<int,int> p32;
 typedef pair<ll,ll> p64;
@@ -61,28 +57,44 @@ double eps = 1e-12;
 #define all(x) (x).begin(), (x).end()
 #define sz(x) ((ll)(x).size())
  
-cpp_int fakt(cpp_int n)
-{
-	if(n==0)
-	return 1;
-	return n*fakt(n-1);
-}
 
+int main() {
+    // #ifndef ONLINE_JUDGE
+    // freopen("input.txt", "r", stdin);
+    // freopen("output.txt", "w", stdout);
+    // #endif
 
-int main()
-{
-    #ifndef ONLINE_JUDGE
-	freopen("input.txt", "r", stdin);
-	freopen("output.txt", "w", stdout);
-	#endif
+	string net,hay;
+	int j=0,count=0,n,i,counter;
 	
-	fast_cin();
-    int t,n; cpp_int ans;
-	cin>>t;
-	while(t--){
-		cin>>n;
-		cout << fakt(n) << ln;
+    fast_cin();
+	while(cin>>n>>net>>hay){
+		if(net.length()>hay.length()){
+			cout<<endl;
+		}
+		if(net.length()==hay.length()){
+			if(hay==net){
+				cout<<0<<endl;
+			}
+		}
+		if(net.length()<hay.length()){
+            for(int k=0;k<=(hay.length()-net.length());k++){
+                i=k;
+                counter=0;
+                for(j=0;j<net.length();++j){
+                    if(hay[i]==net[j]){
+                        i++;
+                        counter++;
+                        if(counter==n){
+                            cout<<i-n<<endl;
+                        }
+                }
+                else{
+                    break;
+                }
+                }
+            }
+		}
 	}
-	
 	return 0;
 }

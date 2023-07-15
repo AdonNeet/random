@@ -1,6 +1,6 @@
 /*
  *		Author	: AdonNeet
- *		Date	: 2023-07-07 13:34:32.000-05:00
+ *		Date	: 2023-07-09 18:36:19.000-05:00
 */
  
 #pragma GCC optimize("Ofast")
@@ -24,15 +24,14 @@
 #include <stack>
 #include <iomanip>
 #include <fstream>
-
-#include <climits>
-#include <boost/multiprecision/cpp_int.hpp>	// use boost lib
+ 
+#include <boost/multiprecision/cpp_int.hpp> // for big_int than ll
  
 using namespace std;
-using namespace boost::multiprecision;	// the namespace for boost lib
+using namespace boost::multiprecision; // namespace for boost
  
 typedef long long ll;
-typedef long long int lli;
+typedef unsigned long long ull;
 typedef long double ld;
 typedef pair<int,int> p32;
 typedef pair<ll,ll> p64;
@@ -61,28 +60,18 @@ double eps = 1e-12;
 #define all(x) (x).begin(), (x).end()
 #define sz(x) ((ll)(x).size())
  
-cpp_int fakt(cpp_int n)
-{
-	if(n==0)
-	return 1;
-	return n*fakt(n-1);
+
+void solve(){
 }
-
-
 int main()
 {
-    #ifndef ONLINE_JUDGE
-	freopen("input.txt", "r", stdin);
-	freopen("output.txt", "w", stdout);
-	#endif
-	
-	fast_cin();
-    int t,n; cpp_int ans;
-	cin>>t;
-	while(t--){
-		cin>>n;
-		cout << fakt(n) << ln;
+    fast_cin();
+	cpp_int n, m;
+
+	forn(i,10){
+		cin >> n >> m;
+		cout << (n+m)/2 << endl;
+		cout << (n-m)/2 << endl; 
 	}
-	
-	return 0;
+    return 0;
 }

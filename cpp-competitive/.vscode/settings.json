@@ -10,7 +10,10 @@
     "span": "cpp",
     "stacktrace": "cpp",
     "regex": "cpp",
-    "valarray": "cpp"
+    "valarray": "cpp",
+    "cmath": "cpp",
+    "ostream": "cpp",
+    "*.tcc": "cpp"
   },
   "C_Cpp.dimInactiveRegions": false
 }

@@ -1,6 +1,6 @@
 /*
  *		Author	: AdonNeet
- *		Date	: 2023-07-07 13:34:32.000-05:00
+ *		Date	: 2023-07-11 16:33:36.000-05:00
 */
  
 #pragma GCC optimize("Ofast")
@@ -24,15 +24,14 @@
 #include <stack>
 #include <iomanip>
 #include <fstream>
-
-#include <climits>
-#include <boost/multiprecision/cpp_int.hpp>	// use boost lib
+ 
+// #include <boost/multiprecision/cpp_int.hpp> // for big_int than ll
  
 using namespace std;
-using namespace boost::multiprecision;	// the namespace for boost lib
+// using namespace boost::multiprecision; // namespace for boost
  
 typedef long long ll;
-typedef long long int lli;
+typedef unsigned long long ull;
 typedef long double ld;
 typedef pair<int,int> p32;
 typedef pair<ll,ll> p64;
@@ -61,28 +60,37 @@ double eps = 1e-12;
 #define all(x) (x).begin(), (x).end()
 #define sz(x) ((ll)(x).size())
  
-cpp_int fakt(cpp_int n)
-{
-	if(n==0)
-	return 1;
-	return n*fakt(n-1);
-}
-
 
 int main()
 {
     #ifndef ONLINE_JUDGE
-	freopen("input.txt", "r", stdin);
-	freopen("output.txt", "w", stdout);
-	#endif
-	
-	fast_cin();
-    int t,n; cpp_int ans;
-	cin>>t;
-	while(t--){
-		cin>>n;
-		cout << fakt(n) << ln;
-	}
-	
-	return 0;
+    freopen("input.txt", "r", stdin);
+    freopen("output.txt", "w", stdout);
+    #endif
+ 
+    fast_cin();
+    int n, res; ll sum; 
+
+    while(cin >> n){
+        if(n == -1) break;
+        sum = 0; res = 0;
+        ll temp[n];
+
+        forn(i, n){
+            cin >> temp[i];
+            sum += temp[i];
+        }
+
+        if(sum%n != 0){
+            cout << -1 << endl;
+        }else {
+            int each = sum/n;
+            forn(i, n){
+                if(temp[i] < each){
+                    res += each - temp[i];
+                }
+            }
+            cout << res << endl;
+        }
+    }
 }

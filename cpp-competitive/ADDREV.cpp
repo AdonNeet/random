@@ -1,6 +1,6 @@
 /*
  *		Author	: AdonNeet
- *		Date	: 2023-07-07 13:34:32.000-05:00
+ *		Date	: 2023-07-09 13:35:15.000-05:00
 */
  
 #pragma GCC optimize("Ofast")
@@ -24,15 +24,11 @@
 #include <stack>
 #include <iomanip>
 #include <fstream>
-
-#include <climits>
-#include <boost/multiprecision/cpp_int.hpp>	// use boost lib
  
 using namespace std;
-using namespace boost::multiprecision;	// the namespace for boost lib
  
 typedef long long ll;
-typedef long long int lli;
+typedef unsigned long long ull;
 typedef long double ld;
 typedef pair<int,int> p32;
 typedef pair<ll,ll> p64;
@@ -61,28 +57,29 @@ double eps = 1e-12;
 #define all(x) (x).begin(), (x).end()
 #define sz(x) ((ll)(x).size())
  
-cpp_int fakt(cpp_int n)
-{
-	if(n==0)
-	return 1;
-	return n*fakt(n-1);
-}
 
+
+int balik(int n){
+	int rest = 0;
+	while(n){
+		rest = rest*10+(n%10);
+		n/=10;
+	}
+	return rest;
+}
 
 int main()
 {
-    #ifndef ONLINE_JUDGE
-	freopen("input.txt", "r", stdin);
-	freopen("output.txt", "w", stdout);
-	#endif
-	
-	fast_cin();
-    int t,n; cpp_int ans;
+    fast_cin();
+    int t;
 	cin>>t;
 	while(t--){
-		cin>>n;
-		cout << fakt(n) << ln;
+		int a, b;
+		cin>>a>>b;
+		int rev_a = balik(a);
+		int rev_b = balik(b);
+		int ans = rev_a+rev_b;
+		cout<<balik(ans)<<endl;
 	}
-	
 	return 0;
 }

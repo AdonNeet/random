@@ -1,10 +1,10 @@
 /*
  *		Author	: AdonNeet
- *		Date	: 2023-07-07 13:34:32.000-05:00
+ *		Date	: 2023-07-11 13:51:37.000-05:00
 */
  
 #pragma GCC optimize("Ofast")
-// #pragma GCC target("sse,sse2,sse3,ssse3,sse4,popcnt,abm,mmx,avx,avx2,fma")
+#pragma GCC target("sse,sse2,sse3,ssse3,sse4,popcnt,abm,mmx,avx,avx2,fma")
 #pragma GCC optimize("unroll-loops")
 #include <bits/stdc++.h>  
 #include <complex>
@@ -24,15 +24,14 @@
 #include <stack>
 #include <iomanip>
 #include <fstream>
-
-#include <climits>
-#include <boost/multiprecision/cpp_int.hpp>	// use boost lib
+ 
+#include <boost/multiprecision/cpp_int.hpp> // for big_int than ll
  
 using namespace std;
-using namespace boost::multiprecision;	// the namespace for boost lib
+using namespace boost::multiprecision; // namespace for boost
  
 typedef long long ll;
-typedef long long int lli;
+typedef unsigned long long ull;
 typedef long double ld;
 typedef pair<int,int> p32;
 typedef pair<ll,ll> p64;
@@ -61,28 +60,27 @@ double eps = 1e-12;
 #define all(x) (x).begin(), (x).end()
 #define sz(x) ((ll)(x).size())
  
-cpp_int fakt(cpp_int n)
-{
-	if(n==0)
-	return 1;
-	return n*fakt(n-1);
-}
-
 
 int main()
 {
-    #ifndef ONLINE_JUDGE
-	freopen("input.txt", "r", stdin);
-	freopen("output.txt", "w", stdout);
-	#endif
-	
-	fast_cin();
-    int t,n; cpp_int ans;
+    fast_cin();
+    int t;
 	cin>>t;
 	while(t--){
+		cpp_int n;
 		cin>>n;
-		cout << fakt(n) << ln;
+		for(cpp_int i=n+1;;i++){
+			cpp_int temp1=i,temp2=i,rem=0,rev=0;
+			while(temp1>0){
+				rem=temp1%10;
+				rev=rev*10+rem;
+				temp1/=10;
+			}
+			if(rev==temp2){
+				cout<<rev<<endl;
+				break;
+			}
+		}
 	}
-	
 	return 0;
 }

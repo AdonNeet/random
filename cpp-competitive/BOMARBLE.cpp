@@ -1,6 +1,6 @@
 /*
  *		Author	: AdonNeet
- *		Date	: 2023-07-07 13:34:32.000-05:00
+ *		Date	: 2023-07-11 14:17:27.000-05:00
 */
  
 #pragma GCC optimize("Ofast")
@@ -24,15 +24,14 @@
 #include <stack>
 #include <iomanip>
 #include <fstream>
-
-#include <climits>
-#include <boost/multiprecision/cpp_int.hpp>	// use boost lib
+ 
+// #include <boost/multiprecision/cpp_int.hpp> // for big_int than ll
  
 using namespace std;
-using namespace boost::multiprecision;	// the namespace for boost lib
+// using namespace boost::multiprecision; // namespace for boost
  
 typedef long long ll;
-typedef long long int lli;
+typedef unsigned long long ull;
 typedef long double ld;
 typedef pair<int,int> p32;
 typedef pair<ll,ll> p64;
@@ -61,28 +60,33 @@ double eps = 1e-12;
 #define all(x) (x).begin(), (x).end()
 #define sz(x) ((ll)(x).size())
  
-cpp_int fakt(cpp_int n)
-{
-	if(n==0)
-	return 1;
-	return n*fakt(n-1);
-}
+int ar[1005];
+int lastIdx = 1;
 
+int findAns(int n){
+    if(ar[n] < 1){
+        for(lastIdx;lastIdx<n;lastIdx++) {
+            ar[lastIdx+1] = ((lastIdx+2)*3 - 2) + ar[lastIdx];
+        }
+        return ar[n];
+    }else {
+        return ar[n];
+    }
+}
 
 int main()
 {
     #ifndef ONLINE_JUDGE
-	freopen("input.txt", "r", stdin);
-	freopen("output.txt", "w", stdout);
-	#endif
-	
-	fast_cin();
-    int t,n; cpp_int ans;
-	cin>>t;
-	while(t--){
-		cin>>n;
-		cout << fakt(n) << ln;
-	}
-	
-	return 0;
+    freopen("input.txt", "r", stdin);
+    freopen("output.txt", "w", stdout);
+    #endif
+    
+    ar[1] = 5;
+
+    fast_cin();
+    int n;
+    while(cin >> n) {
+        if(n == 0) break;
+        cout<<findAns(n)<<endl;
+    }
 }

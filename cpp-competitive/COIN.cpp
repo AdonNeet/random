@@ -1,6 +1,6 @@
 /*
  *		Author	: AdonNeet
- *		Date	: 2023-07-07 13:34:32.000-05:00
+ *		Date	: 2023-07-11 14:10:53.000-05:00
 */
  
 #pragma GCC optimize("Ofast")
@@ -24,15 +24,14 @@
 #include <stack>
 #include <iomanip>
 #include <fstream>
-
-#include <climits>
-#include <boost/multiprecision/cpp_int.hpp>	// use boost lib
+ 
+// #include <boost/multiprecision/cpp_int.hpp> // for big_int than ll
  
 using namespace std;
-using namespace boost::multiprecision;	// the namespace for boost lib
+// using namespace boost::multiprecision; // namespace for boost
  
 typedef long long ll;
-typedef long long int lli;
+typedef unsigned long long ull;
 typedef long double ld;
 typedef pair<int,int> p32;
 typedef pair<ll,ll> p64;
@@ -61,28 +60,36 @@ double eps = 1e-12;
 #define all(x) (x).begin(), (x).end()
 #define sz(x) ((ll)(x).size())
  
-cpp_int fakt(cpp_int n)
-{
-	if(n==0)
-	return 1;
-	return n*fakt(n-1);
-}
 
-
-int main()
-{
-    #ifndef ONLINE_JUDGE
-	freopen("input.txt", "r", stdin);
-	freopen("output.txt", "w", stdout);
-	#endif
-	
-	fast_cin();
-    int t,n; cpp_int ans;
-	cin>>t;
-	while(t--){
-		cin>>n;
-		cout << fakt(n) << ln;
+ll dp[1000005];
+void solve(){
+	dp[0] = 0;
+	dp[1] = 1;
+	dp[2] = 2;
+	for(int i = 3; i < 1000005; i++){
+		dp[i] = max((ll)i, dp[(int)i/2]+dp[(int)i/3]+dp[(int)i/4]);
 	}
-	
-	return 0;
+}
+ll recurse(int n){
+	if(n <= 1000000)
+		return dp[n];
+	return recurse(n/2)+recurse(n/3)+recurse(n/4);
+}
+int main(){
+    // #ifndef ONLINE_JUDGE
+    // freopen("input.txt", "r", stdin);
+    // freopen("output.txt", "w", stdout);
+    // #endif
+
+    fast_cin();
+	solve();
+	int n; 
+    while(cin >> n){
+    	if(n <= 1000000){
+    		cout<<dp[n]<<endl;
+    	}else{
+    		cout<<recurse(n)<<endl;
+    	}
+    }
+    return 0;
 }

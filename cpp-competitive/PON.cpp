@@ -1,6 +1,6 @@
 /*
  *		Author	: AdonNeet
- *		Date	: 2023-07-07 13:34:32.000-05:00
+ *		Date	: 2023-07-09 13:45:17.000-05:00
 */
  
 #pragma GCC optimize("Ofast")
@@ -24,15 +24,11 @@
 #include <stack>
 #include <iomanip>
 #include <fstream>
-
-#include <climits>
-#include <boost/multiprecision/cpp_int.hpp>	// use boost lib
  
 using namespace std;
-using namespace boost::multiprecision;	// the namespace for boost lib
  
 typedef long long ll;
-typedef long long int lli;
+typedef unsigned long long ull;
 typedef long double ld;
 typedef pair<int,int> p32;
 typedef pair<ll,ll> p64;
@@ -61,28 +57,32 @@ double eps = 1e-12;
 #define all(x) (x).begin(), (x).end()
 #define sz(x) ((ll)(x).size())
  
-cpp_int fakt(cpp_int n)
-{
-	if(n==0)
-	return 1;
-	return n*fakt(n-1);
+
+int isPrime(ll n){
+	if (n <= 1)  return 0;
+	    if (n <= 3)  return 1;
+	 
+	    // skip middle five numbers in below loop
+	    if (n%2 == 0 || n%3 == 0) return 0;
+	 
+	    for (int i=5; i*i<=n; i=i+6){
+	        if (n%i == 0 || n%(i+2) == 0){
+	           return 0;
+            }
+        }
+	    return 1;
 }
 
-
-int main()
-{
-    #ifndef ONLINE_JUDGE
-	freopen("input.txt", "r", stdin);
-	freopen("output.txt", "w", stdout);
-	#endif
-	
-	fast_cin();
-    int t,n; cpp_int ans;
-	cin>>t;
+int main() {
+	int t;
+	cin >> t;
 	while(t--){
-		cin>>n;
-		cout << fakt(n) << ln;
+		ll n;
+		cin >> n;
+		if(isPrime(n))
+			printf("YES\n");
+		else
+			printf("NO\n");
 	}
-	
 	return 0;
 }

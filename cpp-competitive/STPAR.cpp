@@ -1,6 +1,6 @@
 /*
  *		Author	: AdonNeet
- *		Date	: 2023-07-07 13:34:32.000-05:00
+ *		Date	: 2023-07-11 13:39:37.000-05:00
 */
  
 #pragma GCC optimize("Ofast")
@@ -24,15 +24,14 @@
 #include <stack>
 #include <iomanip>
 #include <fstream>
-
-#include <climits>
-#include <boost/multiprecision/cpp_int.hpp>	// use boost lib
+ 
+// #include <boost/multiprecision/cpp_int.hpp> // for big_int than ll
  
 using namespace std;
-using namespace boost::multiprecision;	// the namespace for boost lib
+// using namespace boost::multiprecision; // namespace for boost
  
 typedef long long ll;
-typedef long long int lli;
+typedef unsigned long long ull;
 typedef long double ld;
 typedef pair<int,int> p32;
 typedef pair<ll,ll> p64;
@@ -61,28 +60,55 @@ double eps = 1e-12;
 #define all(x) (x).begin(), (x).end()
 #define sz(x) ((ll)(x).size())
  
-cpp_int fakt(cpp_int n)
+
+int T, n, c, maxm, ans, mid, cows, temp ;
+vector<int> x ;
+
+bool check(int k)
 {
-	if(n==0)
-	return 1;
-	return n*fakt(n-1);
+    cows=1 ;
+    temp=x[0] ;
+    for(int i=1 ; i<n ; i++)
+      {
+        if(x[i]-temp>=k)
+          {
+            cows++ ;
+            temp=x[i] ;
+          }
+      }
+    if(cows>=c) return true ;
+    return false ;
 }
 
+void bs(int l, int u)
+{
+    ans=-1 ;
+    while(l<=u)
+      {
+        mid=(l+u)/2 ;
+        if(check(mid))
+          {
+            if(mid>ans)
+              ans=mid ;
+            l=mid+1 ;
+          }
+        else
+            u=mid-1 ;
+      }
+}
 
 int main()
 {
-    #ifndef ONLINE_JUDGE
-	freopen("input.txt", "r", stdin);
-	freopen("output.txt", "w", stdout);
-	#endif
-	
-	fast_cin();
-    int t,n; cpp_int ans;
-	cin>>t;
-	while(t--){
-		cin>>n;
-		cout << fakt(n) << ln;
-	}
-	
-	return 0;
+    cin>> T ;
+    while(T--)
+    {
+        cin>> n >> c ;
+        x.clear() ;
+        x.resize(n) ;
+        for(int i=0 ; i<n ; i++)
+          cin>> x[i] ;
+        sort(x.begin(), x.end()) ;
+        bs(0, x[n-1]) ;
+        cout<< ans << endl ;
+    }
 }
