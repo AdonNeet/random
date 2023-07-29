@@ -1,88 +1,80 @@
 /*
  *		Author	: AdonNeet
- *		Date	: 2023-07-09 13:45:17.000-05:00
+ *		Date	: 2023-07-22 21:04:03.000-05:00
 */
  
 #pragma GCC optimize("Ofast")
-// #pragma GCC target("sse,sse2,sse3,ssse3,sse4,popcnt,abm,mmx,avx,avx2,fma")
+// #pragma GCC target("sse,sse2,sse3,ssse3,sse4,popcnt,abm,mmx,avx,avx2,fma") // if the judge machine use intel
 #pragma GCC optimize("unroll-loops")
 #include <bits/stdc++.h>  
-#include <complex>
-#include <queue>
-#include <set>
-#include <unordered_set>
-#include <list>
-#include <chrono>
-#include <random>
-#include <iostream>
-#include <algorithm>
-#include <cmath>
-#include <string>
-#include <vector>
-#include <map>
-#include <unordered_map>
-#include <stack>
-#include <iomanip>
-#include <fstream>
- 
-using namespace std;
- 
-typedef long long ll;
-typedef unsigned long long ull;
-typedef long double ld;
-typedef pair<int,int> p32;
-typedef pair<ll,ll> p64;
-typedef pair<double,double> pdd;
-typedef vector<ll> v64;
-typedef vector<int> v32;
-typedef vector<vector<int> > vv32;
-typedef vector<vector<ll> > vv64;
-typedef vector<vector<p64> > vvp64;
-typedef vector<p64> vp64;
-typedef vector<p32> vp32;
-ll MOD = 998244353;
-double eps = 1e-12;
-#define forn(i,e) for(ll i = 0; i < e; i++)
-#define forsn(i,s,e) for(ll i = s; i < e; i++)
-#define rforn(i,s) for(ll i = s; i >= 0; i--)
-#define rforsn(i,s,e) for(ll i = s; i >= e; i--)
-#define ln "\n"
-#define dbg(x) cout<<#x<<" = "<<x<<ln
-#define mp make_pair
-#define pb push_back
-#define fi first
-#define se second
-#define INF 2e18
-#define fast_cin() ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL)
-#define all(x) (x).begin(), (x).end()
-#define sz(x) ((ll)(x).size())
- 
 
-int isPrime(ll n){
-	if (n <= 1)  return 0;
-	    if (n <= 3)  return 1;
-	 
-	    // skip middle five numbers in below loop
-	    if (n%2 == 0 || n%3 == 0) return 0;
-	 
-	    for (int i=5; i*i<=n; i=i+6){
-	        if (n%i == 0 || n%(i+2) == 0){
-	           return 0;
-            }
-        }
-	    return 1;
+using namespace std;
+typedef long long ll;
+#define kueri ll tp; cin >> tp; while(tp--)
+#define fast_cin() ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL)
+
+ 
+int power(ll x, ll y, ll p){
+	int rest = 1;
+	x = x%p;
+	while(y>0){
+		if(y&1 == 1){
+			rest = (rest*x)%p;
+		}
+
+		y = y >> 1;
+		x = (x*x)%p;
+	}
+	return rest;
 }
 
-int main() {
-	int t;
-	cin >> t;
-	while(t--){
-		ll n;
-		cin >> n;
-		if(isPrime(n))
-			printf("YES\n");
-		else
-			printf("NO\n");
+int millerRabinTest(ll n, ll d, ll a){
+	int x = power(a, d, n);
+
+	if(x == 1 || x == n-1){
+		return true;
+	}
+
+	while(d!=n-1){
+		x = (x*x) % n;
+		d = d << 1;
+
+		if(x==1) return false;
+		else if(x==n-1) return true;
+	}
+	return false;
+}
+
+int isP(ll n){
+	if(n == 2 || n == 3) return true;
+	else if(n&1 == 0) return false;
+
+	int d = n -1;
+	while(d%2 == 0){
+		d = d/2;
+	}
+
+	int arr[] = {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37};
+	for(int a:arr){
+		if(a>n-2) break;
+		if(millerRabinTest(n, d, a) == false) return false;
+	}
+	return true;
+}
+
+int main()
+{
+	#ifndef ONLINE_JUDGE
+	freopen("input.in", "r", stdin);
+	freopen("output.out", "w", stdout);
+	#endif
+ 
+	fast_cin();
+	ll temp;
+	kueri{
+		cin >> temp;
+		if(isP(temp)) cout << "YES" <<endl;
+		else cout << "NO" << endl;
 	}
 	return 0;
 }

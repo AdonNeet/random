@@ -4,27 +4,8 @@
 */
  
 #pragma GCC optimize("Ofast")
-#pragma GCC target("sse,sse2,sse3,ssse3,sse4,popcnt,abm,mmx,avx,avx2,fma")
-#pragma GCC optimize("unroll-loops")
 #include <bits/stdc++.h>  
-#include <complex>
-#include <queue>
-#include <set>
-#include <unordered_set>
-#include <list>
-#include <chrono>
-#include <random>
-#include <iostream>
-#include <algorithm>
-#include <cmath>
-#include <string>
-#include <vector>
-#include <map>
-#include <unordered_map>
-#include <stack>
-#include <iomanip>
-#include <fstream>
- 
+
 using namespace std;
  
 typedef long long ll;
@@ -33,10 +14,17 @@ typedef long long ll;
 #define fast_cin() ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL)
 
  
+
 int main()
-{   
+{
+    #ifndef ONLINE_JUDGE
+    freopen("input.in", "r", stdin);
+    freopen("output.out", "w", stdout);
+    #endif
+
+    fast_cin();
     ll n; cin >> n;
-    string a, b; cin >> a >> b;
+    string a, b; cin >> a; cin >> b;
 
     ll ans = 0;
     forn(i, n){
@@ -44,11 +32,10 @@ int main()
             ans++;
             while(a[i]>=b[i]){
                 i++;
+                if(i==n) break;
             }
         }
     }
 
     cout << ans;
-
-    return 0;
 }
